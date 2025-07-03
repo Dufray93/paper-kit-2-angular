@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
     test : Date = new Date();
-    focus;
-    focus1;
+    focus: boolean = false;
+    focus1: boolean = false;
     constructor() { }
 
     ngOnInit() {}

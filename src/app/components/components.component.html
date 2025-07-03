@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
-        <h6 class=" category-absolute ml-auto mr-auto">Designed and coded by
+        <h6 class=" category-absolute ms-auto me-auto">Designed and coded by
         <!-- <h6 class="category category-absolute">Designed and coded by -->
 
             <a href="https://www.creative-tim.com" target="_blank">
@@ -64,23 +64,28 @@
 
                       <div class="nav-tabs-navigation">
                           <div class="nav-tabs-wrapper">
-                              <ngb-tabset [justify]="'center'">
-                                  <ngb-tab title="Home">
-                                      <ng-template ngbTabContent>
-                                          <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                                  <ngb-tab title="Profile">
-                                      <ng-template ngbTabContent>
-                                          <p>Here is your profile.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                                  <ngb-tab title="Messages">
-                                      <ng-template ngbTabContent>
-                                          <p>Here are your messages.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                              </ngb-tabset>
+                              <ul class="nav nav-tabs nav-justified" id="componentsTabs" role="tablist">
+                                  <li class="nav-item" role="presentation">
+                                      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                      <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Messages</button>
+                                  </li>
+                              </ul>
+                              <div class="tab-content text-center" id="componentsTabsContent">
+                                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                      <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                  </div>
+                                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                      <p>Here is your profile.</p>
+                                  </div>
+                                  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                                      <p>Here are your messages.</p>
+                                  </div>
+                              </div>
                           </div>
                       </div>
 
@@ -197,7 +202,7 @@
                   <h3>Carousel</h3>
               </div>
               <div class="row">
-                  <div class="col-md-8 mr-auto ml-auto">
+                  <div class="col-md-8 me-auto ms-auto">
                       <div class="card page-carousel">
                           <ngb-carousel>
                               <ng-template ngbSlide>
@@ -261,7 +266,7 @@
         <div class="section section-dark">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
+                    <div class="col-md-8 ms-auto me-auto text-center">
                         <h2 class="title">Completed with examples</h2>
                         <p class="description">The kit comes with three pre-built pages to help you get started faster. You can change the text and images and you're good to go. More importantly, looking at them will give you a picture of what you can built with this powerful kit.</p>
                     </div>
@@ -271,7 +276,7 @@
         <div class="section section-image section-login" style="background-image: url('assets/img/login-image.jpg');">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-12 ml-auto mr-auto">
+                    <div class="col-lg-4 col-md-6 col-sm-12 ms-auto me-auto">
                         <div class="card card-register">
                             <h3 class="title">Welcome</h3>
                             <div class="social-line text-center">
@@ -341,13 +346,13 @@
         <div class="section">
             <div class="container text-center">
                 <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
+                    <div class="col-md-8 ms-auto me-auto text-center">
                         <h2 class="title">Do you like what you see?</h2>
                         <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 download-area ml-auto mr-auto">
+                    <div class="col-md-6 download-area ms-auto me-auto">
                         <a href="https://www.creative-tim.com/product/paper-kit-2" class="btn btn-warning btn-round">Download free HTML</a>
                         <a href="https://www.creative-tim.com/product/paper-kit-2-angular" class="btn btn-danger btn-round">Download free Angular</a>
                     </div>

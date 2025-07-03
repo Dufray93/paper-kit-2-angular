@@ -12,14 +12,16 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class ComponentsComponent implements OnInit {
-    page = 4;
-    page1 = 5;
-    focus;
-    focus1;
-    focus2;
-    date: {year: number, month: number};
-    model: NgbDateStruct;
+    page: number = 4;
+    page1: number = 5;
+    focus: boolean = false;
+    focus1: boolean = false;
+    focus2: boolean = false;
+    date: {year: number, month: number} = {year: 2023, month: 7};
+    model: NgbDateStruct = {year: 2023, month: 7, day: 15};
+    
     constructor( private renderer : Renderer2) {}
+    
     isWeekend(date: NgbDateStruct) {
         const d = new Date(date.year, date.month - 1, date.day);
         return d.getDay() === 0 || d.getDay() === 6;

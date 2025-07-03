@@ -170,21 +170,30 @@
                 <div class="tim-title">
                     <h3>Toggle Buttons</h3>
                 </div>
-                <bSwitch
-                    [switch-on-color]="'primary'">
-                </bSwitch>
-                <bSwitch
-                    [switch-on-color]="'primary'"
-                    [(ngModel)]="state_default"> Toggle is off
-                </bSwitch>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch1" [(ngModel)]="state_default">
+                    <label class="form-check-label" for="switch1">Toggle is {{state_default ? 'on' : 'off'}}</label>
+                </div>
+                <br>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch2" [(ngModel)]="state_default">
+                    <label class="form-check-label" for="switch2">Toggle is {{state_default ? 'on' : 'off'}}</label>
+                </div>
             </div>
             <div class="col-sm-6 col-lg-3">
                 <div class="tim-title">
                     <h3>Sliders</h3>
                 </div>
-                <nouislider [connect]="false" [min]="0" [max]="100" [step]="1" [(ngModel)]="simpleSlider" [tooltips]="false" class="slider"></nouislider>
+                <div class="slider-container">
+                    <label for="simpleSlider" class="form-label">Simple Slider: {{simpleSlider}}</label>
+                    <input type="range" class="form-range slider" id="simpleSlider" min="0" max="100" [(ngModel)]="simpleSlider">
+                </div>
                 <br>
-                <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="100" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="false"></nouislider>
+                <div class="slider-container">
+                    <label for="doubleSlider" class="form-label">Range Slider: {{doubleSlider[0]}} - {{doubleSlider[1]}}</label>
+                    <input type="range" class="form-range slider slider-info" id="doubleSlider" min="0" max="100" [(ngModel)]="doubleSlider[0]">
+                    <input type="range" class="form-range slider slider-info" min="0" max="100" [(ngModel)]="doubleSlider[1]">
+                </div>
             </div>
         </div>
     </div>
