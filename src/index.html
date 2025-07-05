@@ -26,6 +26,21 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Tu Pupila Óptica - Especialistas en salud visual, lentes oftálmicos, monturas, lentes de contacto y accesorios ópticos de alta calidad." />
     <meta name="keywords" content="óptica, lentes, monturas, lentes de contacto, salud visual, oftalmología, gafas, Tu Pupila Óptica" />
+    
+    <!-- Script para GitHub Pages SPA -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    
     <!--     Fonts and icons     -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
