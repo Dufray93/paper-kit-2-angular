@@ -1,0 +1,16 @@
+// Estilos para el footer component
+
+.footer-nav {
+  ul {
+    li {
+      a {
+        text-decoration: none; // Quita el subrayado
+        
+        &:hover {
+          text-decoration: none; // Asegura que no aparezca en hover
+          opacity: 0.8; // Efecto hover sutil
+        }
+      }
+    }
+  }
+}
