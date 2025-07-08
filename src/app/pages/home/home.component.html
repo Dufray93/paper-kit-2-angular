@@ -24,7 +24,7 @@
                 <div class="floating-square"></div>
                 <div class="floating-triangle"></div>
             </div>
-            
+
             <div class="new-hero-grid">
                 <!-- Contenido principal del hero -->
                 <div class="new-hero-content">
@@ -34,14 +34,14 @@
                         <span class="headline-highlight">con claridad</span>
                         <span class="headline-sub">perfecta</span>
                     </h1>
-                    
+
                     <!-- Subheadline -->
                     <p class="new-hero-subheadline">
-                        Revoluciona tu visión con nuestros exámenes especializados, 
-                        monturas de diseño exclusivo y la mejor tecnología óptica de Colombia. 
+                        Revoluciona tu visión con nuestros exámenes especializados,
+                        monturas de diseño exclusivo y la mejor tecnología óptica de Colombia.
                         <strong>Más de 5 años mejorando vidas.</strong>
                     </p>
-                    
+
                     <!-- CTAs -->
                     <div class="new-hero-ctas">
                         <button class="cta-primary">
@@ -53,7 +53,7 @@
                             <span class="cta-text">Ver Servicios</span>
                         </button>
                     </div>
-                    
+
                     <!-- Trust indicators -->
                     <div class="trust-indicators">
                         <div class="trust-item">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Visual del hero -->
                 <div class="new-hero-visual">
                     <div class="visual-container">
@@ -98,16 +98,30 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Indicador de scroll -->
         <div class="scroll-indicator">
             <span class="scroll-text">Desliza para explorar</span>
             <div class="scroll-arrow"></div>
         </div>
+
+
     </section>
+
+    <!-- SEPARADOR: Hero → Servicios (puntos) -->
+    <div style="width:100%;text-align:center;padding:16px 0;">
+      <svg width="120" height="16" viewBox="0 0 120 16" style="display:inline-block;">
+        <circle cx="12" cy="8" r="6" fill="#f59e0b" opacity="0.4"/>
+        <circle cx="36" cy="8" r="4" fill="#f59e0b" opacity="0.6"/>
+        <circle cx="60" cy="8" r="8" fill="#f59e0b" opacity="0.8"/>
+        <circle cx="84" cy="8" r="4" fill="#f59e0b" opacity="0.6"/>
+        <circle cx="108" cy="8" r="6" fill="#f59e0b" opacity="0.4"/>
+      </svg>
+    </div>
 
     <!-- Servicios Section - Expandable Cards -->
     <div class="services-hero-section">
+
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mb-4">
@@ -116,14 +130,16 @@
                 </div>
             </div>
             <div class="card_container">
-                <div class="expandable-card" title="Exámenes de la Vista" tabindex="0" role="button" aria-label="Conocer más sobre Exámenes de la Vista">
+                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(0)"
+                    (click)="toggleServiceCard(0)" title="Exámenes de la Vista" tabindex="0" role="button"
+                    aria-label="Conocer más sobre Exámenes de la Vista">
                     <img src="assets/img/cards/examenes.jpg" alt="Exámenes de la Vista">
                     <div class="service-icon">
                         <i class="nc-icon nc-glasses-2"></i>
                     </div>
                     <div class="card-overlay">
-                        <h3>Exámenes de la Vista</h3>
-                        <p>Tecnología avanzada para el cuidado de tu salud visual</p>
+                        <h3 class="service-title">Exámenes de la Vista</h3>
+                        <p class="service-description">Tecnología avanzada para el cuidado de tu salud visual</p>
                         <div class="card-cta">
                             <span class="cta-text">Conocer más</span>
                             <i class="nc-icon nc-minimal-right"></i>
@@ -131,14 +147,16 @@
                     </div>
                 </div>
 
-                <div class="expandable-card" title="Lentes de Contacto" tabindex="0" role="button" aria-label="Conocer más sobre Lentes de Contacto">
+                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(1)"
+                    (click)="toggleServiceCard(1)" title="Lentes de Contacto" tabindex="0" role="button"
+                    aria-label="Conocer más sobre Lentes de Contacto">
                     <img src="assets/img/cards/lentescontacto.jpg" alt="Lentes de Contacto">
                     <div class="service-icon">
                         <i class="nc-icon nc-circle-10"></i>
                     </div>
                     <div class="card-overlay">
-                        <h3>Lentes de Contacto</h3>
-                        <p>Adaptación personalizada para máxima comodidad</p>
+                        <h3 class="service-title">Lentes de Contacto</h3>
+                        <p class="service-description">Adaptación personalizada para máxima comodidad</p>
                         <div class="card-cta">
                             <span class="cta-text">Conocer más</span>
                             <i class="nc-icon nc-minimal-right"></i>
@@ -146,14 +164,16 @@
                     </div>
                 </div>
 
-                <div class="expandable-card" title="Monturas de Diseño" tabindex="0" role="button" aria-label="Conocer más sobre Monturas de Diseño">
+                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(2)"
+                    (click)="toggleServiceCard(2)" title="Monturas de Diseño" tabindex="0" role="button"
+                    aria-label="Conocer más sobre Monturas de Diseño">
                     <img src="assets/img/cards/uv.jpg" alt="Monturas de Diseño">
                     <div class="service-icon">
                         <i class="nc-icon nc-diamond"></i>
                     </div>
                     <div class="card-overlay">
-                        <h3>Monturas de Diseño</h3>
-                        <p>Las mejores marcas y estilos para tu personalidad</p>
+                        <h3 class="service-title">Monturas de Diseño</h3>
+                        <p class="service-description">Las mejores marcas y estilos para tu personalidad</p>
                         <div class="card-cta">
                             <span class="cta-text">Conocer más</span>
                             <i class="nc-icon nc-minimal-right"></i>
@@ -161,14 +181,16 @@
                     </div>
                 </div>
 
-                <div class="expandable-card" title="Reparación y Ajustes" tabindex="0" role="button" aria-label="Conocer más sobre Reparación y Ajustes">
+                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(3)"
+                    (click)="toggleServiceCard(3)" title="Reparación y Ajustes" tabindex="0" role="button"
+                    aria-label="Conocer más sobre Reparación y Ajustes">
                     <img src="assets/img/cards/reparacion.jpg" alt="Reparación y Ajustes">
                     <div class="service-icon">
                         <i class="nc-icon nc-settings-gear-65"></i>
                     </div>
                     <div class="card-overlay">
-                        <h3>Reparación y Ajustes</h3>
-                        <p>Servicio técnico especializado y garantizado</p>
+                        <h3 class="service-title">Reparación y Ajustes</h3>
+                        <p class="service-description">Servicio técnico especializado y garantizado</p>
                         <div class="card-cta">
                             <span class="cta-text">Conocer más</span>
                             <i class="nc-icon nc-minimal-right"></i>
@@ -176,14 +198,16 @@
                     </div>
                 </div>
 
-                <div class="expandable-card" title="Asesoría Personalizada" tabindex="0" role="button" aria-label="Conocer más sobre Asesoría Personalizada">
+                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(4)"
+                    (click)="toggleServiceCard(4)" title="Asesoría Personalizada" tabindex="0" role="button"
+                    aria-label="Conocer más sobre Asesoría Personalizada">
                     <img src="assets/img/cards/asesoria.jpg" alt="Asesoría Personalizada">
                     <div class="service-icon">
                         <i class="nc-icon nc-single-02"></i>
                     </div>
                     <div class="card-overlay">
-                        <h3>Asesoría Personalizada</h3>
-                        <p>Encuentra la solución visual perfecta para ti</p>
+                        <h3 class="service-title">Asesoría Personalizada</h3>
+                        <p class="service-description">Encuentra la solución visual perfecta para ti</p>
                         <div class="card-cta">
                             <span class="cta-text">Conocer más</span>
                             <i class="nc-icon nc-minimal-right"></i>
@@ -191,7 +215,31 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Botón CTA para servicios -->
+            <div class="row">
+                <div class="col-12 text-center mt-5">
+                    <div class="services-actions">
+                        <a href="#" class="services-cta">
+                            <span>Ver Todos los Servicios</span>
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+        
+    </div>
+
+    <!-- SEPARADOR: Servicios → Productos (diamantes) -->
+    <div style="width:100%;text-align:center;padding:16px 0;">
+      <svg width="120" height="16" viewBox="0 0 120 16" style="display:inline-block;">
+        <polygon points="8,8 12,4 16,8 12,12" fill="#38bdf8"/>
+        <polygon points="32,8 36,4 40,8 36,12" fill="#38bdf8" opacity="0.7"/>
+        <polygon points="56,8 60,4 64,8 60,12" fill="#38bdf8" opacity="0.9"/>
+        <polygon points="80,8 84,4 88,8 84,12" fill="#38bdf8" opacity="0.7"/>
+        <polygon points="104,8 108,4 112,8 108,12" fill="#38bdf8"/>
+      </svg>
     </div>
 
     <!-- Productos Section - Estilo Beautiful Cards -->
@@ -201,33 +249,51 @@
                 <!-- Texto a la izquierda -->
                 <div class="col-lg-4 col-md-5">
                     <div class="productos-text">
-                        <h2 class="productos-title">Nuestros Productos</h2>
+                        <h2 class="productos-title">Nuestros Productos Especializados</h2>
                         <h3 class="productos-subtitle">UNA SOLUCIÓN PARA CADA NECESIDAD</h3>
                         <p class="productos-description">
-                            Hemos ido más allá con opciones para que organices tu visión perfecta. 
-                            Desde lentes diseñados para uso diario, hasta monturas especializadas 
-                            o lentes de sol, tendrás muchas opciones para elegir. Todos nuestros 
+                            Hemos ido más allá con opciones para que organices tu visión perfecta.
+                            Desde lentes diseñados para uso diario, hasta monturas especializadas
+                            o lentes de sol, tendrás muchas opciones para elegir. Todos nuestros
                             productos siguen los principios de Paper Kit y tienen un diseño que destaca.
                         </p>
+
+                        <!-- Estadísticas elegantes -->
+                        <div class="productos-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">6</span>
+                                <span class="stat-label">Categorías</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Años</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Clientes</span>
+                            </div>
+                        </div>
+
+                        <!-- Botón CTA Premium -->
+                        <a href="#" class="productos-cta" (click)="navigateToProducts()">
+                            <span>Ver Catálogo Completo</span>
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-                
-                <!-- Cards diagonales a la derecha -->
+
+                <!-- Grid de productos 2x3 -->
                 <div class="col-lg-8 col-md-7">
-                    <div class="cards-container">
-                        <div class="diagonal-card" 
-                             data-bg="assets/img/sliderProductos/lentes.jpg" 
-                             style="background-image: url('assets/img/sliderProductos/lentes.jpg');"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Ver detalles de Lentes Oftálmicos">
-                            <!-- Icono de categoría siempre visible -->
+                    <div class="products-grid">
+                        <!-- Producto 1: Lentes Oftálmicos -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/lentes.jpg"
+                            style="background-image: url('assets/img/sliderProductos/lentes.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Lentes Oftálmicos">
                             <div class="product-category-icon">
                                 <i class="fa fa-eye"></i>
                             </div>
-                            <!-- Badge de información -->
-                            <div class="product-badge badge-precio">Desde $120.000</div>
-                            <!-- Información básica siempre visible -->
+                            <div class="product-badge badge-precio">$120.000</div>
                             <div class="product-info-always">
                                 <h4 class="product-title">Lentes Oftálmicos</h4>
                                 <p class="product-category">Corrección Visual</p>
@@ -236,42 +302,13 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
-                            <!-- Contenido expandido en hover/focus -->
-                            <div class="card-content">
-                                <div class="product-price">$120.000</div>
-                                <h4 class="product-full-title">Lentes Oftálmicos Premium</h4>
-                                <p class="product-full-category">Corrección Visual</p>
-                                <p class="product-description">Tecnología avanzada para corregir tu visión con precisión y comodidad excepcional.</p>
-                                <div class="product-features">
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Antirreflejante incluido</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Protección UV 100%</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Garantía 1 año</span>
-                                    </div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary-product">
-                                        <span>Cotizar</span>
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </button>
-                                    <button class="btn-secondary-product">Info</button>
-                                </div>
-                            </div>
                         </div>
-                        
-                        <div class="diagonal-card" 
-                             data-bg="assets/img/sliderProductos/marca.jpg" 
-                             style="background-image: url('assets/img/sliderProductos/marca.jpg');"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Ver detalles de Monturas de Diseño">
+
+                        <!-- Producto 2: Monturas de Diseño -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/marca.jpg"
+                            style="background-image: url('assets/img/sliderProductos/marca.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Monturas de Diseño">
                             <div class="product-category-icon">
                                 <i class="fa fa-glasses"></i>
                             </div>
@@ -284,41 +321,13 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div class="product-price">$85.000</div>
-                                <h4 class="product-full-title">Monturas de Diseño Exclusivo</h4>
-                                <p class="product-full-category">Estilo & Elegancia</p>
-                                <p class="product-description">Estilos modernos y elegantes que complementan tu personalidad única.</p>
-                                <div class="product-features">
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Marcas reconocidas</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Materiales premium</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Ajuste personalizado</span>
-                                    </div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary-product">
-                                        <span>Ver Modelos</span>
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button class="btn-secondary-product">Info</button>
-                                </div>
-                            </div>
                         </div>
-                        
-                        <div class="diagonal-card" 
-                             data-bg="assets/img/sliderProductos/sol.jpg" 
-                             style="background-image: url('assets/img/sliderProductos/sol.jpg');"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Ver detalles de Lentes de Sol">
+
+                        <!-- Producto 3: Lentes de Sol -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/sol.jpg"
+                            style="background-image: url('assets/img/sliderProductos/sol.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Lentes de Sol">
                             <div class="product-category-icon">
                                 <i class="fa fa-sun-o"></i>
                             </div>
@@ -331,45 +340,36 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div class="product-price">$95.000</div>
-                                <h4 class="product-full-title">Lentes de Sol Premium</h4>
-                                <p class="product-full-category">Protección UV</p>
-                                <p class="product-description">Protección UV premium con estilo único y tecnología antirreflejante.</p>
-                                <div class="product-features">
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>UV 400 certificado</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Lentes polarizados</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Diseños exclusivos</span>
-                                    </div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary-product">
-                                        <span>Explorar</span>
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                    <button class="btn-secondary-product">Info</button>
+                        </div>
+
+                        <!-- Producto 4: Lentes Fotocromáticos -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/monturas.jpg"
+                            style="background-image: url('assets/img/sliderProductos/monturas.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Lentes Fotocromáticos">
+                            <div class="product-category-icon">
+                                <i class="fa fa-adjust"></i>
+                            </div>
+                            <div class="product-badge badge-especial">Especial</div>
+                            <div class="product-info-always">
+                                <h4 class="product-title">Lentes Fotocromáticos</h4>
+                                <p class="product-category">Adaptación Automática</p>
+                                <div class="product-cta-basic">
+                                    <span>Ver detalles</span>
+                                    <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="diagonal-card" 
-                             data-bg="assets/img/sliderProductos/monturas.jpg" 
-                             style="background-image: url('assets/img/sliderProductos/monturas.jpg');"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Ver detalles de Lentes de Contacto">
+
+                        <!-- Producto 5: Lentes de Contacto -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/accesorios.jpg"
+                            style="background-image: url('assets/img/sliderProductos/accesorios.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Lentes de Contacto">
                             <div class="product-category-icon">
                                 <i class="fa fa-circle-o"></i>
                             </div>
-                            <div class="product-badge badge-precio">Desde $45.000</div>
+                            <div class="product-badge badge-precio">$45.000</div>
                             <div class="product-info-always">
                                 <h4 class="product-title">Lentes de Contacto</h4>
                                 <p class="product-category">Comodidad Total</p>
@@ -378,41 +378,13 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div class="product-price">$45.000</div>
-                                <h4 class="product-full-title">Lentes de Contacto</h4>
-                                <p class="product-full-category">Comodidad Total</p>
-                                <p class="product-description">Comodidad y claridad visual excepcional para uso diario o especial.</p>
-                                <div class="product-features">
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Adaptación personalizada</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Hidratación duradera</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Control de seguimiento</span>
-                                    </div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary-product">
-                                        <span>Agendar</span>
-                                        <i class="fa fa-calendar"></i>
-                                    </button>
-                                    <button class="btn-secondary-product">Info</button>
-                                </div>
-                            </div>
                         </div>
-                        
-                        <div class="diagonal-card" 
-                             data-bg="assets/img/sliderProductos/accesorios.jpg" 
-                             style="background-image: url('assets/img/sliderProductos/accesorios.jpg');"
-                             tabindex="0"
-                             role="button"
-                             aria-label="Ver detalles de Accesorios">
+
+                        <!-- Producto 6: Accesorios -->
+                        <div class="product-card" (click)="navigateToProducts()"
+                            data-bg="assets/img/sliderProductos/lentes.jpg"
+                            style="background-image: url('assets/img/sliderProductos/lentes.jpg');" tabindex="0"
+                            role="button" aria-label="Ver detalles de Accesorios">
                             <div class="product-category-icon">
                                 <i class="fa fa-wrench"></i>
                             </div>
@@ -425,38 +397,11 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </div>
                             </div>
-                            <div class="card-content">
-                                <div class="product-price">$15.000</div>
-                                <h4 class="product-full-title">Accesorios Completos</h4>
-                                <p class="product-full-category">Cuidado & Mantenimiento</p>
-                                <p class="product-description">Todo lo necesario para el cuidado y mantenimiento de tus lentes.</p>
-                                <div class="product-features">
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Estuches protectores</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Soluciones de limpieza</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fa fa-check"></i>
-                                        <span>Paños especializados</span>
-                                    </div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary-product">
-                                        <span>Ver Kit</span>
-                                        <i class="fa fa-gift"></i>
-                                    </button>
-                                    <button class="btn-secondary-product">Info</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slider de Marcas - Integrado con Productos -->
             <div class="marcas-integrated">
                 <div class="container">
@@ -497,7 +442,7 @@
                                     <div class="brand-item">
                                         <img src="assets/img/autoslider/slider1_10.png" alt="Brand Logo">
                                     </div>
-                                    
+
                                     <!-- Duplicación mínima para efecto infinito -->
                                     <div class="brand-item">
                                         <img src="assets/img/autoslider/slider1_1.png" alt="Brand Logo">
@@ -517,6 +462,17 @@
         </div>
     </div>
 
+    <!-- SEPARADOR: Productos → Referidos (estrellas) -->
+    <div style="width:100%;text-align:center;padding:16px 0;">
+      <svg width="120" height="16" viewBox="0 0 120 16" style="display:inline-block;">
+        <text x="10" y="13" font-size="16" fill="#fff">*</text>
+        <text x="35" y="13" font-size="20" fill="#f59e0b">*</text>
+        <text x="60" y="13" font-size="24" fill="#fff">*</text>
+        <text x="85" y="13" font-size="20" fill="#f59e0b">*</text>
+        <text x="110" y="13" font-size="16" fill="#fff">*</text>
+      </svg>
+    </div>
+
     <!-- Referidos Section -->
     <div class="referidos-section">
         <div class="container">
@@ -525,13 +481,13 @@
                     <h2 class="referidos-title">Sistema de Referidos Multinivel</h2>
                     <h3 class="referidos-subtitle">GANA EN 3 NIVELES DE PROFUNDIDAD</h3>
                     <p class="referidos-description">
-                        Nuestro sistema de referidos multinivel te permite ganar recompensas por cada compra 
-                        que realicen tus referidos directos y los referidos de tus referidos, hasta 3 niveles 
+                        Nuestro sistema de referidos multinivel te permite ganar recompensas por cada compra
+                        que realicen tus referidos directos y los referidos de tus referidos, hasta 3 niveles
                         de profundidad. Comparte tu código único y comienza a generar ingresos pasivos.
                     </p>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="referidos-info-card">
@@ -543,7 +499,7 @@
                         <p>Por cada compra de tus referidos directos</p>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="referidos-info-card">
                         <div class="info-icon nivel-2">
@@ -554,7 +510,7 @@
                         <p>Por compras de referidos de tus referidos</p>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="referidos-info-card">
                         <div class="info-icon nivel-3">
@@ -566,13 +522,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="referidos-actions">
                         <button class="btn btn-primary btn-lg btn-referidos" (click)="navigateToReferidos()">
                             <i class="fa fa-share-alt"></i>
-                            Obtener Mi Código
+                            Empezar a Referir
                         </button>
                         <div class="referidos-info">
                             <small>Kit mensual requerido para seguir participando activamente</small>
@@ -581,6 +537,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- SEPARADOR: Referidos → Testimonios (líneas dobles) -->
+    <div style="width:100%;text-align:center;padding:16px 0;">
+      <div style="height:2px;background:#fff;opacity:0.3;width:60%;margin:0 auto 4px auto;"></div>
+      <div style="height:2px;background:#fff;opacity:0.7;width:40%;margin:0 auto;"></div>
     </div>
 
     <!-- Testimonios Section -->
@@ -592,7 +554,7 @@
                     <p class="testimonios-subtitle">Experiencias reales de personas que confían en nosotros</p>
                 </div>
             </div>
-            
+
             <div class="testimonios-grid">
                 <div class="testimonio-card">
                     <div class="testimonio-content">
@@ -696,8 +658,7 @@
                     <div class="col-md-4">
                         <div class="card card-profile card-plain">
                             <div class="card-avatar">
-                                <a href="#avatar"><img src="./assets/img/faces/andres.jpg"
-                                        alt="Andrés Rojas"></a>
+                                <a href="#avatar"><img src="./assets/img/faces/andres.jpg" alt="Andrés Rojas"></a>
                             </div>
                             <div class="card-block">
                                 <a href="#equipo" class="text-decoration-none">
@@ -714,9 +675,12 @@
                                 </p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-facebook"></i></a>
-                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-instagram"></i></a>
-                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-envelope"></i></a>
+                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-facebook"></i></a>
+                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-instagram"></i></a>
+                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
@@ -740,9 +704,12 @@
                                 </p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-facebook"></i></a>
-                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-instagram"></i></a>
-                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-envelope"></i></a>
+                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-facebook"></i></a>
+                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-instagram"></i></a>
+                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
@@ -750,8 +717,7 @@
                     <div class="col-md-4">
                         <div class="card card-profile card-plain">
                             <div class="card-avatar">
-                                <a href="#avatar"><img src="./assets/img/faces/brayhan.jpg"
-                                        alt="Brayhan Mendoza"></a>
+                                <a href="#avatar"><img src="./assets/img/faces/brayhan.jpg" alt="Brayhan Mendoza"></a>
                             </div>
                             <div class="card-block">
                                 <a href="#equipo" class="text-decoration-none">
@@ -767,9 +733,12 @@
                                 </p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-facebook"></i></a>
-                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-instagram"></i></a>
-                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-envelope"></i></a>
+                                <a href="#facebook" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-facebook"></i></a>
+                                <a href="#instagram" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-instagram"></i></a>
+                                <a href="#email" class="btn btn-link btn-just-icon btn-neutral"><i
+                                        class="fa fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
@@ -787,11 +756,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nombre</label>
-                                    <input type="text" class="form-control" placeholder="Ej: Juan" (focus)="focus=true" (blur)="focus=false">
+                                    <input type="text" class="form-control" placeholder="Ej: Juan" (focus)="focus=true"
+                                        (blur)="focus=false">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Teléfono</label>
-                                    <input type="tel" class="form-control" placeholder="Ej: 3120000000" (focus)="focus1=true" (blur)="focus1=false">
+                                    <input type="tel" class="form-control" placeholder="Ej: 3120000000"
+                                        (focus)="focus1=true" (blur)="focus1=false">
                                 </div>
                             </div>
                             <label>Mensaje</label>
@@ -799,7 +770,8 @@
                                 placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
                             <div class="row">
                                 <div class="col-md-4 me-auto ms-auto">
-                                    <button class="btn btn-danger btn-lg btn-fill" (click)="navigateToLanding()">Enviar</button>
+                                    <button class="btn btn-danger btn-lg btn-fill"
+                                        (click)="navigateToLanding()">Enviar</button>
                                 </div>
                             </div>
                         </form>

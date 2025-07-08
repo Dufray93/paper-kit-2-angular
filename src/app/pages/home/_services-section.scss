@@ -1,21 +1,51 @@
+// ===== VARIABLES Y MIXINS DE SERVICIOS =====
+$color-services-bg: rgba(34, 139, 34, 0.85); // Verde bosque
+$color-services-shadow: rgba(0,0,0,0.3);
+$color-services-shadow-hover: rgba(0,0,0,0.5);
+$color-services-card-bg: rgba(255,255,255,0.1);
+$color-services-card-hover: rgba(255,255,255,0.15);
+$color-services-icon-bg: linear-gradient(135deg, #2e8b57, #20b2aa);
+$color-services-icon-hover: linear-gradient(135deg, #20b2aa, #2e8b57);
+$color-services-icon-shadow: rgba(46, 139, 87, 0.3);
+$color-services-icon-shadow-hover: rgba(46, 139, 87, 0.4);
+$color-services-icon-border: rgba(255,255,255,0.2);
+$color-services-icon-border-hover: rgba(255,255,255,0.4);
+$color-services-cta: #2e8b57;
+
+@mixin mq($width) {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+@mixin card-shadow {
+  box-shadow: 0 8px 25px $color-services-shadow;
+}
+@mixin card-shadow-hover {
+  box-shadow: 0 20px 50px $color-services-shadow-hover;
+}
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
 // ===== SECCIÓN DE SERVICIOS - EXPANDABLE CARDS =====
 .services-hero-section {
     padding: 80px 0;
-    min-height: 900px;
+    min-height: auto; // Cambio: altura automática para evitar espacios excesivos
     display: flex;
-    align-items: center;
-    background: rgba(46, 213, 115, 0.15);
+    flex-direction: column;
+    justify-content: center;
+    background: transparent; 
+    //background: rgba(224, 247, 250, 0.75); // Fondo translúcido para mejorar la visibilidad del texto
     position: relative;
-    backdrop-filter: blur(5px);
     overflow: visible;
     
-    @media (max-width: 768px) {
-        min-height: 720px;
+    @include mq(768px) {
+        min-height: auto; // Cambio: altura automática en tablet
         padding: 60px 0;
     }
     
-    @media (max-width: 576px) {
-        min-height: 650px;
+    @include mq(576px) {
+        min-height: auto; // Cambio: altura automática en móvil
         padding: 50px 0;
     }
     
@@ -26,11 +56,11 @@
         margin-bottom: 1rem;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         
-        @media (max-width: 768px) {
+        @include mq(768px) {
             font-size: 2rem;
         }
         
-        @media (max-width: 576px) {
+        @include mq(576px) {
             font-size: 1.8rem;
         }
     }
@@ -41,14 +71,70 @@
         margin-bottom: 3rem;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         
-        @media (max-width: 768px) {
+        @include mq(768px) {
             font-size: 1rem;
             margin-bottom: 2.5rem;
         }
         
-        @media (max-width: 576px) {
+        @include mq(576px) {
             font-size: 0.9rem;
             margin-bottom: 2rem;
+        }
+    }
+    
+    // Botón CTA para Ver Todos los Servicios
+    .services-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        margin-top: 30px;
+        
+        &:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        &:hover i {
+            transform: translateX(3px);
+        }
+        
+        @include mq(768px) {
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            margin-top: 25px;
+            
+            i {
+                font-size: 1rem;
+            }
+        }
+        
+        @include mq(576px) {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            margin-top: 20px;
+            
+            i {
+                font-size: 0.9rem;
+            }
         }
     }
 }
@@ -63,20 +149,20 @@
     gap: 1.25rem;
     transition: all 0.4s;
     margin: 0 auto;
-    padding: 0 20px 80px 20px;
+    padding: 0 20px 40px 20px; // Reducido padding bottom de 80px a 40px
     
-    @media (max-width: 768px) {
+    @include mq(768px) {
         height: 400px;
         gap: 0.8rem;
-        padding: 30px 15px 70px 15px;
+        padding: 30px 15px 30px 15px; // Reducido padding bottom de 70px a 30px
     }
     
-    @media (max-width: 576px) {
+    @include mq(576px) {
         height: 340px;
         gap: 0.5rem;
         flex-direction: row;
         overflow-x: auto;
-        padding: 25px 10px 60px 10px;
+        padding: 25px 10px 25px 10px; // Reducido padding bottom de 60px a 25px
         justify-content: flex-start;
     }
 }
@@ -88,7 +174,7 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    @include card-shadow;
     cursor: pointer;
     
     img {
@@ -107,15 +193,15 @@
         right: 20px;
         width: 50px;
         height: 50px;
-        background: linear-gradient(135deg, #2e8b57, #20b2aa);
+        background: $color-services-icon-bg;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+        @include card-shadow;
         z-index: 3;
         transition: all 0.3s ease;
-        border: 2px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid $color-services-icon-border;
         
         i {
             font-size: 1.5rem;
@@ -123,7 +209,7 @@
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         
-        @media (max-width: 768px) {
+        @include mq(768px) {
             width: 40px;
             height: 40px;
             top: 15px;
@@ -135,7 +221,7 @@
             }
         }
         
-        @media (max-width: 576px) {
+        @include mq(576px) {
             width: 35px;
             height: 35px;
             top: 12px;
@@ -152,11 +238,11 @@
     &:nth-child(odd) {
         transform: translateY(-20px);
         
-        @media (max-width: 768px) {
+        @include mq(768px) {
             transform: translateY(-8px);
         }
         
-        @media (max-width: 576px) {
+        @include mq(576px) {
             transform: translateY(-5px);
         }
     }
@@ -164,11 +250,11 @@
     &:nth-child(even) {
         transform: translateY(20px);
         
-        @media (max-width: 768px) {
+        @include mq(768px) {
             transform: translateY(8px);
         }
         
-        @media (max-width: 576px) {
+        @include mq(576px) {
             transform: translateY(5px);
         }
     }
@@ -178,7 +264,7 @@
     &:focus {
         flex: 4;
         transform: translateY(0) scale(1.02);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        @include card-shadow-hover;
         outline: none;
         z-index: 10;
         position: relative;
@@ -190,8 +276,8 @@
         
         .service-icon {
             transform: scale(1.1) rotate(5deg);
-            background: linear-gradient(135deg, #20b2aa, #2e8b57);
-            box-shadow: 0 6px 20px rgba(46, 139, 87, 0.4);
+            background: $color-services-icon-hover;
+            @include card-shadow-hover;
             border-color: rgba(255, 255, 255, 0.4);
         }
         
@@ -206,26 +292,51 @@
         outline-offset: 2px;
     }
     
-    // Para dispositivos táctiles - mostrar overlay parcialmente
-    @media (hover: none) {
+    // Para dispositivos táctiles - comportamiento simplificado
+    @media (hover: none) and (pointer: coarse), (max-width: 768px) {
         .card-overlay {
-            opacity: 0.85;
-            transform: translateY(0);
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            opacity: 0 !important;
+            transform: translateY(100%) !important;
+            visibility: hidden !important;
+            transition: all 0.3s ease;
             
-            .card-cta {
-                opacity: 0.7;
+            .card-cta,
+            .service-title,
+            .service-description {
+                opacity: 0 !important;
+                visibility: hidden !important;
+                transform: translateY(30px);
+                transition: all 0.3s ease;
             }
         }
         
-        &:active,
-        &:focus {
+        // Cuando la tarjeta está expandida (mobile-expanded)
+        &.mobile-expanded {
+            flex: 4;
+            transform: translateY(0) scale(1.02);
+            @include card-shadow-hover;
+            z-index: 10;
+            position: relative;
+            
             .card-overlay {
-                opacity: 1;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
                 
-                .card-cta {
-                    opacity: 1;
+                .card-cta,
+                .service-title,
+                .service-description {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    transform: translateY(0);
                 }
+            }
+            
+            .service-icon {
+                transform: scale(1.1) rotate(5deg);
+                background: $color-services-icon-hover;
+                @include card-shadow-hover;
+                border-color: rgba(255, 255, 255, 0.4);
             }
         }
     }
@@ -265,7 +376,7 @@
         gap: 8px;
         font-size: 0.9rem;
         font-weight: 500;
-        color: #2e8b57;
+        color: $color-services-cta;
         transition: all 0.3s ease;
         
         .cta-text {
@@ -282,7 +393,7 @@
         }
     }
     
-    @media (max-width: 768px) {
+    @include mq(768px) {
         padding: 20px 15px 15px;
         
         h3 {
@@ -300,7 +411,7 @@
         }
     }
     
-    @media (max-width: 576px) {
+    @include mq(576px) {
         padding: 15px 12px 12px;
         
         h3 {
