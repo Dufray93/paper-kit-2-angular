@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { ComponentsModule } from './components/components.module';
 import { ExamplesModule } from './examples/examples.module';
+import { ReferralsModule } from './pages/referrals/referrals.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ExamplesModule } from './examples/examples.module';
     RouterModule,
     ComponentsModule,
     ExamplesModule,
+    ReferralsModule,
     AppRoutingModule,
   ],
   providers: [],

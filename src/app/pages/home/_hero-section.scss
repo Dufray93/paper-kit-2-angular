@@ -70,10 +70,10 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
   }
   
   .new-hero-container {
-    max-width: 1200px;
+    // max-width: 1200px; // Eliminado para ancho completo
+    width: 100vw;
     margin: 0 auto;
     padding: 0 40px;
-    width: 100%;
     position: relative;
     @include mq(768px) { padding: 0 20px; }
     @include mq(576px) { padding: 0 15px; }
@@ -664,6 +664,15 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
           height: 4px;
         }
       }
+    }
+  }
+  
+  .services-cards-responsive {
+    gap: 2rem;
+  }
+  @media (max-width: 576px) {
+    .services-cards-responsive {
+      gap: 0.1rem !important;
     }
   }
 }

@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToReferidos(): void {
-    // Por ahora navega a la página de componentes hasta que se cree la página de referidos
     this.router.navigate(['/referrals']);
   }
 

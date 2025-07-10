@@ -32,7 +32,7 @@
                     <h1 class="new-hero-headline">
                         <span class="headline-main">Ver el mundo</span>
                         <span class="headline-highlight">con claridad</span>
-                        <span class="headline-sub">perfecta</span>
+                        <span class="headline-sub">y estilo</span>
                     </h1>
 
                     <!-- Subheadline -->
@@ -44,14 +44,11 @@
 
                     <!-- CTAs -->
                     <div class="new-hero-ctas">
-                        <button class="cta-primary">
-                            <span class="cta-text">Agendar Examen</span>
-                            <span class="cta-icon">→</span>
-                        </button>
-                        <button class="cta-secondary">
-                            <span class="cta-icon">▶</span>
-                            <span class="cta-text">Ver Servicios</span>
-                        </button>
+                        <a class="btn-home-main" href="https://wa.me/573000000000" target="_blank" rel="noopener" style="background: #25D366;">
+                            <span class="cta-text">Agendar Cita</span>
+                            <i class="fa fa-whatsapp"></i>
+                        </a>
+                        <!-- Botón "Ver Servicios" eliminado para mayor limpieza en móvil y porque la sección está justo debajo -->
                     </div>
 
                     <!-- Trust indicators -->
@@ -119,117 +116,116 @@
       </svg>
     </div>
 
-    <!-- Servicios Section - Expandable Cards -->
-    <div class="services-hero-section">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mb-4">
-                    <h2 class="services-title">Nuestros Servicios Especializados</h2>
-                    <p class="services-subtitle">Descubre la excelencia en cuidado visual que ofrecemos</p>
-                </div>
+    <!-- Servicios Section - Split Layout (cartas a la izquierda, texto a la derecha en PC; texto arriba en móvil) -->
+    <section class="services-hero-section py-5">
+      <div class="container-fluid">
+        <div class="row align-items-center flex-lg-row flex-column-reverse">
+          <!-- Columna de texto (a la derecha en PC, arriba en móvil) -->
+          <div class="col-lg-5 col-md-6 mb-4 mb-md-0 order-lg-2 order-1 d-flex align-items-center">
+            <div class="services-text text-lg-start text-center pe-lg-5 w-100">
+              <h2 class="services-title mb-3">Nuestros Servicios Especializados</h2>
+              <p class="services-subtitle mb-4">Descubre la excelencia en cuidado visual que ofrecemos</p>
+              <ul class="list-unstyled mb-4">
+                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Exámenes de la vista profesionales</li>
+                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Lentes de contacto y monturas de diseño</li>
+                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Reparación, ajustes y asesoría personalizada</li>
+              </ul>
+              <a href="#" class="btn btn-primary btn-lg">Ver Todos los Servicios <i class="fa fa-arrow-right ms-2"></i></a>
             </div>
-            <div class="card_container">
-                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(0)"
-                    (click)="toggleServiceCard(0)" title="Exámenes de la Vista" tabindex="0" role="button"
-                    aria-label="Conocer más sobre Exámenes de la Vista">
-                    <img src="assets/img/cards/examenes.jpg" alt="Exámenes de la Vista">
-                    <div class="service-icon">
-                        <i class="nc-icon nc-glasses-2"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <h3 class="service-title">Exámenes de la Vista</h3>
-                        <p class="service-description">Tecnología avanzada para el cuidado de tu salud visual</p>
-                        <div class="card-cta">
-                            <span class="cta-text">Conocer más</span>
-                            <i class="nc-icon nc-minimal-right"></i>
-                        </div>
-                    </div>
+          </div>
+          <!-- Columna de cards (cartas originales, ahora a la izquierda en PC) -->
+          <div class="col-lg-7 col-md-6 order-lg-1 order-2">
+            <div class="card_container d-flex flex-wrap justify-content-center gap-4 services-cards-responsive">
+              <!-- Tarjeta 1 -->
+              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(0)"
+                (click)="toggleServiceCard(0)" title="Exámenes de la Vista" tabindex="0" role="button"
+                aria-label="Conocer más sobre Exámenes de la Vista">
+                <img src="assets/img/cards/examenes.jpg" alt="Exámenes de la Vista">
+                <div class="service-icon">
+                  <i class="nc-icon nc-glasses-2"></i>
                 </div>
-
-                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(1)"
-                    (click)="toggleServiceCard(1)" title="Lentes de Contacto" tabindex="0" role="button"
-                    aria-label="Conocer más sobre Lentes de Contacto">
-                    <img src="assets/img/cards/lentescontacto.jpg" alt="Lentes de Contacto">
-                    <div class="service-icon">
-                        <i class="nc-icon nc-circle-10"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <h3 class="service-title">Lentes de Contacto</h3>
-                        <p class="service-description">Adaptación personalizada para máxima comodidad</p>
-                        <div class="card-cta">
-                            <span class="cta-text">Conocer más</span>
-                            <i class="nc-icon nc-minimal-right"></i>
-                        </div>
-                    </div>
+                <div class="card-overlay">
+                  <h3 class="service-title">Exámenes de la Vista</h3>
+                  <p class="service-description">Tecnología avanzada para el cuidado de tu salud visual</p>
+                  <div class="card-cta">
+                    <span class="cta-text">Conocer más</span>
+                    <i class="nc-icon nc-minimal-right"></i>
+                  </div>
                 </div>
-
-                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(2)"
-                    (click)="toggleServiceCard(2)" title="Monturas de Diseño" tabindex="0" role="button"
-                    aria-label="Conocer más sobre Monturas de Diseño">
-                    <img src="assets/img/cards/uv.jpg" alt="Monturas de Diseño">
-                    <div class="service-icon">
-                        <i class="nc-icon nc-diamond"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <h3 class="service-title">Monturas de Diseño</h3>
-                        <p class="service-description">Las mejores marcas y estilos para tu personalidad</p>
-                        <div class="card-cta">
-                            <span class="cta-text">Conocer más</span>
-                            <i class="nc-icon nc-minimal-right"></i>
-                        </div>
-                    </div>
+              </div>
+              <!-- Tarjeta 2 -->
+              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(1)"
+                (click)="toggleServiceCard(1)" title="Lentes de Contacto" tabindex="0" role="button"
+                aria-label="Conocer más sobre Lentes de Contacto">
+                <img src="assets/img/cards/lentescontacto.jpg" alt="Lentes de Contacto">
+                <div class="service-icon">
+                  <i class="nc-icon nc-circle-10"></i>
                 </div>
-
-                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(3)"
-                    (click)="toggleServiceCard(3)" title="Reparación y Ajustes" tabindex="0" role="button"
-                    aria-label="Conocer más sobre Reparación y Ajustes">
-                    <img src="assets/img/cards/reparacion.jpg" alt="Reparación y Ajustes">
-                    <div class="service-icon">
-                        <i class="nc-icon nc-settings-gear-65"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <h3 class="service-title">Reparación y Ajustes</h3>
-                        <p class="service-description">Servicio técnico especializado y garantizado</p>
-                        <div class="card-cta">
-                            <span class="cta-text">Conocer más</span>
-                            <i class="nc-icon nc-minimal-right"></i>
-                        </div>
-                    </div>
+                <div class="card-overlay">
+                  <h3 class="service-title">Lentes de Contacto</h3>
+                  <p class="service-description">Adaptación personalizada para máxima comodidad</p>
+                  <div class="card-cta">
+                    <span class="cta-text">Conocer más</span>
+                    <i class="nc-icon nc-minimal-right"></i>
+                  </div>
                 </div>
-
-                <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(4)"
-                    (click)="toggleServiceCard(4)" title="Asesoría Personalizada" tabindex="0" role="button"
-                    aria-label="Conocer más sobre Asesoría Personalizada">
-                    <img src="assets/img/cards/asesoria.jpg" alt="Asesoría Personalizada">
-                    <div class="service-icon">
-                        <i class="nc-icon nc-single-02"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <h3 class="service-title">Asesoría Personalizada</h3>
-                        <p class="service-description">Encuentra la solución visual perfecta para ti</p>
-                        <div class="card-cta">
-                            <span class="cta-text">Conocer más</span>
-                            <i class="nc-icon nc-minimal-right"></i>
-                        </div>
-                    </div>
+              </div>
+              <!-- Tarjeta 3 -->
+              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(2)"
+                (click)="toggleServiceCard(2)" title="Monturas de Diseño" tabindex="0" role="button"
+                aria-label="Conocer más sobre Monturas de Diseño">
+                <img src="assets/img/cards/uv.jpg" alt="Monturas de Diseño">
+                <div class="service-icon">
+                  <i class="nc-icon nc-diamond"></i>
                 </div>
+                <div class="card-overlay">
+                  <h3 class="service-title">Monturas de Diseño</h3>
+                  <p class="service-description">Las mejores marcas y estilos para tu personalidad</p>
+                  <div class="card-cta">
+                    <span class="cta-text">Conocer más</span>
+                    <i class="nc-icon nc-minimal-right"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Tarjeta 4 -->
+              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(3)"
+                (click)="toggleServiceCard(3)" title="Reparación y Ajustes" tabindex="0" role="button"
+                aria-label="Conocer más sobre Reparación y Ajustes">
+                <img src="assets/img/cards/reparacion.jpg" alt="Reparación y Ajustes">
+                <div class="service-icon">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                </div>
+                <div class="card-overlay">
+                  <h3 class="service-title">Reparación y Ajustes</h3>
+                  <p class="service-description">Servicio técnico especializado y garantizado</p>
+                  <div class="card-cta">
+                    <span class="cta-text">Conocer más</span>
+                    <i class="nc-icon nc-minimal-right"></i>
+                  </div>
+                </div>
+              </div>
+              <!-- Tarjeta 5 -->
+              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(4)"
+                (click)="toggleServiceCard(4)" title="Asesoría Personalizada" tabindex="0" role="button"
+                aria-label="Conocer más sobre Asesoría Personalizada">
+                <img src="assets/img/cards/asesoria.jpg" alt="Asesoría Personalizada">
+                <div class="service-icon">
+                  <i class="nc-icon nc-single-02"></i>
+                </div>
+                <div class="card-overlay">
+                  <h3 class="service-title">Asesoría Personalizada</h3>
+                  <p class="service-description">Encuentra la solución visual perfecta para ti</p>
+                  <div class="card-cta">
+                    <span class="cta-text">Conocer más</span>
+                    <i class="nc-icon nc-minimal-right"></i>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <!-- Botón CTA para servicios -->
-            <div class="row">
-                <div class="col-12 text-center mt-5">
-                    <div class="services-actions">
-                        <a href="#" class="services-cta">
-                            <span>Ver Todos los Servicios</span>
-                            <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        
-    </div>
+      </div>
+    </section>
 
     <!-- SEPARADOR: Servicios → Productos (diamantes) -->
     <div style="width:100%;text-align:center;padding:16px 0;">
@@ -249,7 +245,7 @@
                 <!-- Texto a la izquierda -->
                 <div class="col-lg-4 col-md-5">
                     <div class="productos-text">
-                        <h2 class="productos-title">Nuestros Productos Especializados</h2>
+                        <h2 class="productos-title">Nuestros Productos</h2>
                         <h3 class="productos-subtitle">UNA SOLUCIÓN PARA CADA NECESIDAD</h3>
                         <p class="productos-description">
                             Hemos ido más allá con opciones para que organices tu visión perfecta.

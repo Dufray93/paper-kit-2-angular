@@ -1,0 +1,490 @@
+// Estilos para el componente de referidos
+.wrapper {
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding-top: 0; // Eliminar espacio blanco superior
+}
+
+.referrals-header-bg {
+  min-height: 180px;
+  background: linear-gradient(90deg, #5bc0be 0%, #3a506b 100%);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-top: 90px; // Compensa la navbar fija
+  .filter {
+    background: rgba(255,255,255,0.12);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0; top: 0;
+    z-index: 1;
+  }
+  .content-center {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 1.5rem;
+  }
+  .presentation-title {
+    color: #fff;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .presentation-subtitle {
+    color: #e0f7fa;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+}
+
+.main {
+  background: linear-gradient(90deg, #f7fafc 0%, #e3f6f5 100%);
+  min-height: 60vh;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.section-referrals-info {
+  margin-top: 0;
+  padding-bottom: 2rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.card-info, .card-graphic, .card-query {
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 16px rgba(90,192,190,0.08);
+  background: #fff;
+  margin-bottom: 1.2rem;
+}
+.card-info {
+  border-left: 5px solid #5bc0be;
+  ul {
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0;
+    list-style: none;
+    .step-icon {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      background: linear-gradient(135deg, #5bc0be 60%, #e3f6f5 100%);
+      color: #fff;
+      font-weight: bold;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 2rem;
+      margin-right: 0.7rem;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px rgba(90,192,190,0.10);
+    }
+    li {
+      margin-bottom: 0.7rem;
+      font-size: 1.08rem;
+    }
+  }
+  .lead {
+    color: #3a506b;
+    font-weight: 500;
+  }
+}
+.card-graphic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  svg {
+    max-width: 650px;
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+.card-query {
+  border-left: 5px solid #3a506b;
+}
+
+.referral-query-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  .input-group {
+    display: flex;
+    align-items: center;
+    input.form-control {
+      border-radius: 2rem 0 0 2rem;
+      border: 1px solid #5bc0be;
+      font-size: 1.05rem;
+      padding: 0.7rem 1.1rem;
+      background: #f7fafc;
+    }
+    .btn {
+      border-radius: 0 2rem 2rem 0;
+      padding: 0.7rem 1.5rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      background: linear-gradient(90deg, #5bc0be 0%, #3a506b 100%);
+      color: #fff;
+      border: none;
+      transition: background 0.2s;
+      &:hover {
+        background: linear-gradient(90deg, #3a506b 0%, #5bc0be 100%);
+      }
+    }
+  }
+}
+
+.admin-access {
+  margin-top: 0.5rem;
+  .admin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #888;
+    font-size: 0.98rem;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+    svg {
+      vertical-align: middle;
+    }
+    &:hover {
+      color: #3a506b;
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+}
+
+.benefits-block {
+  background: #fff;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 16px rgba(90,192,190,0.08);
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 2.5rem;
+}
+.benefit-item {
+  min-width: 180px;
+  max-width: 220px;
+  flex: 1 1 180px;
+}
+.benefit-icon {
+  font-size: 2.3rem;
+  color: #5bc0be;
+  background: #e3f6f5;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem auto;
+  box-shadow: 0 2px 8px rgba(90,192,190,0.10);
+}
+.benefit-icon.animate-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 2.2rem;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #5bc0be22;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem auto;
+  cursor: pointer;
+}
+.benefit-icon.animate-hover:hover,
+.benefit-icon.animate-hover:focus {
+  transform: scale(1.15) rotate(-6deg);
+  box-shadow: 0 4px 16px #5bc0be44;
+  background: #e3f6f5;
+}
+.benefit-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+.benefit-desc {
+  color: #3a506b;
+  font-size: 0.97rem;
+}
+.benefits-block {
+  gap: 2rem 1.5rem;
+}
+@media (max-width: 767px) {
+  .benefits-block {
+    flex-direction: column !important;
+    gap: 1.2rem 0;
+  }
+  .benefit-icon.animate-hover {
+    width: 48px;
+    height: 48px;
+    font-size: 1.7rem;
+  }
+}
+/* Consulta de referidos: feedback visual */
+.referral-query-form input:valid {
+  border-color: #5bc0be;
+  box-shadow: 0 0 0 0.15rem #5bc0be33;
+}
+.referral-query-form input:invalid:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 0.15rem #e74c3c33;
+}
+.referral-query-form button i {
+  margin-right: 0.3em;
+}
+.referral-query-result .alert-success {
+  background: #e3f6f5;
+  color: #222;
+  border: none;
+  font-size: 1rem;
+}
+.referral-query-result .list-group-item {
+  border: none;
+  border-radius: 0.5rem;
+  margin-bottom: 0.2rem;
+  background: #f8f9fa;
+}
+.referral-query-result .badge {
+  font-size: 0.95em;
+  padding: 0.4em 0.8em;
+}
+.admin-link {
+  transition: color 0.2s;
+}
+.admin-link:hover, .admin-link:focus {
+  color: #222 !important;
+  text-decoration: underline;
+}
+
+// Separador SVG entre hero y main
+.separator-svg {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin-bottom: -1.5rem;
+  background: none;
+  z-index: 2;
+  position: relative;
+}
+// Sombra más profunda en cards en desktop
+@media (min-width: 992px) {
+  .card-info, .card-graphic, .card-query, .benefits-block {
+    box-shadow: 0 6px 32px rgba(90,192,190,0.13);
+  }
+}
+// Más espacio entre secciones
+.section-referrals-info > .container > .row {
+  margin-bottom: 2.5rem;
+}
+// Botón CTA en hero
+.hero-cta-btn {
+  margin-top: 1.2rem;
+  padding: 0.85rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #5bc0be 0%, #3a506b 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 12px #3a506b22;
+  transition: background 0.2s, transform 0.2s;
+}
+.hero-cta-btn:hover, .hero-cta-btn:focus {
+  background: linear-gradient(90deg, #3a506b 0%, #5bc0be 100%);
+  transform: translateY(-2px) scale(1.04);
+  color: #fff;
+}
+// Separador visual en desktop
+@media (min-width: 992px) {
+  .section-referrals-info {
+    padding-top: 2.5rem;
+  }
+}
+
+// Responsividad
+@media (max-width: 991px) {
+  .section-referrals-info {
+    margin-top: -30px;
+  }
+}
+@media (max-width: 700px) {
+  .referrals-header-bg .presentation-title {
+    font-size: 1.5rem;
+  }
+  .referrals-header-bg .presentation-subtitle {
+    font-size: 1rem;
+  }
+  .section-referrals-info {
+    margin-top: -10px;
+    padding-bottom: 1rem;
+  }
+  .card-info, .card-graphic, .card-query {
+    padding: 1.1rem 0.7rem;
+  }
+}
+@media (max-width: 600px) {
+  .card-info {
+    padding: 0.7rem 0.4rem;
+    font-size: 0.97rem;
+    ul {
+      margin-top: 0.7rem;
+      .step-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.5rem;
+        margin-right: 0.5rem;
+      }
+      li {
+        font-size: 0.97rem;
+        margin-bottom: 0.4rem;
+      }
+    }
+    .lead {
+      font-size: 1rem;
+    }
+    h3 {
+      font-size: 1.15rem;
+    }
+  }
+  .card-graphic {
+    min-height: unset;
+    padding: 0.5rem 0.2rem;
+    img {
+      max-width: 95vw;
+      width: 100%;
+      min-width: 0;
+      border-radius: 0.7rem;
+      box-shadow: 0 1px 8px #0001;
+      margin: 0 auto;
+      display: block;
+    }
+    .text-center {
+      font-size: 0.92rem;
+    }
+  }
+  .benefits-block {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.5rem;
+    padding: 0.5rem 0.1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: stretch;
+  }
+  .benefit-item {
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    text-align: center;
+    padding: 0.3rem 0.5rem; /* Más padding lateral */
+  }
+  .benefit-icon, .benefit-icon.animate-hover {
+    width: 38px;
+    height: 38px;
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+  .benefit-title {
+    font-size: 0.95rem;
+  }
+  .benefit-desc {
+    font-size: 0.88rem;
+  }
+  .card-query {
+    padding: 0.6rem 0.2rem;
+    border-radius: 0.7rem;
+  }
+  .referral-query-form .input-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+    width: 100%;
+    input.form-control {
+      border-radius: 2rem;
+      margin-bottom: 0;
+      font-size: 0.98rem;
+      padding: 0.6rem 1rem;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      display: block;
+    }
+    .btn {
+      border-radius: 2rem;
+      width: 100%;
+      padding: 0.6rem 0;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      margin-left: 0 !important;
+      align-self: stretch;
+      box-sizing: border-box;
+      display: block;
+    }
+  }
+  .referral-query-result .alert-success {
+    font-size: 0.95rem;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.7rem 0.5rem;
+  }
+  .referral-query-result .list-group-item {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.5rem;
+  }
+  .pagination {
+    font-size: 1em;
+    > li > .page-link {
+      min-width: 2em;
+      min-height: 2em;
+      font-size: 1em;
+      padding: 0.3em 0.6em;
+    }
+  }
+  .referral-query-result ul.list-group {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+  .referral-query-result .list-group-item {
+    min-width: 220px;
+    white-space: normal;
+  }
+}
+@media (min-width: 601px) {
+  .referral-query-form .input-group {
+    flex-direction: row;
+    align-items: center;
+    input.form-control {
+      border-radius: 2rem 0 0 2rem;
+      margin-bottom: 0;
+      font-size: 1.05rem;
+      padding: 0.7rem 1.1rem;
+      width: auto;
+      min-width: 0;
+      box-sizing: border-box;
+      display: block;
+      height: 44px;
+    }
+    .btn {
+      border-radius: 0 2rem 2rem 0;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.05rem;
+      height: 44px;
+      margin-left: 0.2rem;
+      width: auto;
+      min-width: 0;
+      box-sizing: border-box;
+      display: block;
+    }
+  }
+}

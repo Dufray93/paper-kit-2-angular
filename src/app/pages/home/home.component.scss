@@ -354,3 +354,35 @@
     }
 }
 
+// Cambiar todos los botones principales del home a la clase unificada
+// Botón "Ver Todos los Servicios"
+.services-hero-section .btn.btn-primary.btn-lg {
+  @extend .btn-home-main;
+}
+// Botón "Agendar Examen" y "Ver Servicios" en el hero
+.new-hero-section .cta-primary,
+.new-hero-section .cta-secondary {
+  @extend .btn-home-main;
+  font-size: 1.08rem;
+  padding: 13px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, rgba(46,139,87,0.95), rgba(32,178,170,0.85));
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 6px 18px rgba(46,139,87,0.18);
+  &:hover, &:focus {
+    background: linear-gradient(135deg, rgba(32,178,170,1), rgba(46,139,87,1));
+    color: #fff !important;
+    box-shadow: 0 10px 28px rgba(46,139,87,0.28);
+    transform: translateY(-2px) scale(1.03);
+  }
+}
+// Botón "Ver Catálogo Completo" en productos
+.productos-cta {
+  @extend .btn-home-main;
+}
+// Botón "Empezar a Referir" en referidos
+.btn-referidos {
+  @extend .btn-home-main;
+}
+
