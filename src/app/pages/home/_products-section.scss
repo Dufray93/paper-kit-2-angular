@@ -303,7 +303,14 @@ $color-products-cta: #007bff;
     max-width: 600px;
     margin: 0 auto;
     padding: 0 20px;
-    
+
+    @media (min-width: 992px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        max-width: 1100px;
+        gap: 32px;
+    }
+
     @include mq(768px) {
         max-width: 500px;
         gap: 20px;
@@ -325,6 +332,10 @@ $color-products-cta: #007bff;
 .product-card {
     position: relative;
     height: 280px;
+    @media (min-width: 992px) {
+        height: 420px;
+        aspect-ratio: 3/5;
+    }
     background: $color-products-card-bg;
     border-radius: $color-products-card-radius;
     @include card-shadow;
@@ -564,63 +575,47 @@ $color-products-cta: #007bff;
     }
     .brands-slider {
         width: 100%;
-        height: 80px;
+        height: 70px;
         overflow: hidden;
         position: relative;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 14px;
         margin: 0;
         box-sizing: border-box;
-        padding-right: 60px;
+        background: none;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        /* Eliminamos gradientes laterales para look más limpio */
         &::before, &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 60px;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-        &::before {
-            left: 0;
-            background: linear-gradient(to right, rgba(44, 62, 80, 0.2), rgba(44, 62, 80, 0.15), rgba(44, 62, 80, 0.1), transparent);
-            border-top-left-radius: 12px;
-            border-bottom-left-radius: 12px;
-        }
-        &::after {
-            right: 0;
-            background: linear-gradient(to left, rgba(44, 62, 80, 0.2), rgba(44, 62, 80, 0.15), rgba(44, 62, 80, 0.1), transparent);
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
+            display: none;
         }
     }
     .brands-track {
         display: flex;
-        animation: scroll 35s linear infinite;
-        width: calc(120px * 13);
+        animation: scroll 56s linear infinite;
+        width: calc(100px * 20); // 20 logos (10 originales + 10 duplicados)
+        padding-left: 24px;
+        padding-right: 24px;
         &:hover { animation-play-state: paused; }
     }
     .brand-item {
-        flex: 0 0 120px;
-        height: 80px;
+        flex: 0 0 100px;
+        height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 12px;
+        padding: 8px;
         img {
-            max-width: 90px;
-            max-height: 55px;
+            max-width: 70px;
+            max-height: 40px;
             object-fit: contain;
             filter: grayscale(100%) opacity(0.7);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(.4,1.4,.6,1);
             border-radius: 4px;
         }
         &:hover img {
             filter: grayscale(0%) opacity(1);
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
     }
     @include mq(768px) {
@@ -652,10 +647,20 @@ $color-products-cta: #007bff;
 }
 
 // ===== ANIMACIÓN DEL SLIDER DE MARCAS =====
+// Para loop perfecto con 10 logos (ajustar si cambias tamaño de .brand-item)
+// Animación robusta: la pista tiene 20 logos, pero solo se desplaza el ancho de 10 logos
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-120px * 10)); }
+    100% { transform: translateX(calc(-100px * 10)); }
 }
+/*
+IMPORTANTE: Para un loop perfecto y robusto en cualquier pantalla, en el HTML pon los 10 logos y luego repite los mismos 10 logos (20 en total). Ejemplo:
+<div class="brands-track">
+  ...10 logos...
+  ...los mismos 10 logos de nuevo...
+</div>
+La animación solo desplaza el ancho de los 10 logos originales, así el loop es continuo y nunca hay espacio vacío, sin importar el ancho del slider.
+*/
 @include mq(768px) {
     @keyframes scroll {
         0% { transform: translateX(0); }
