@@ -1,3 +1,45 @@
+/* --- Forzado absoluto para el divisor de scroll --- */
+#scroll-divider {
+  width: 100%;
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  background: none;
+}
+#scroll-divider .scroll-divider-circle {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+#scroll-divider .scroll-divider-text {
+  color: #fff;
+  background: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: center;
+  opacity: 1;
+  margin-top: 0;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  display: block;
+}
+
+#scroll-divider .scroll-divider-arrow {
+  width: 13px;
+  height: 13px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg);
+  margin: 0 auto;
+  animation: scroll-arrow-bounce 1.2s infinite;
+  margin-bottom: 0.1rem;
+}
+@keyframes scroll-arrow-bounce {
+  0%, 100% { transform: translateY(0) rotate(-45deg); }
+  50% { transform: translateY(8px) rotate(-45deg); }
+}
 // ===== VARIABLES Y MIXINS =====
 $color-hero-bg: rgba(13, 28, 62, 0.92);
 $color-gold: #ffd700;
@@ -54,19 +96,18 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
   }
   // SOLO para vista de escritorio forzada en móviles (cuando detectamos desktop viewport en dispositivo móvil)
   @media screen and (max-device-width: 768px) and (min-width: 768px) {
-    min-height: auto !important;
-    height: auto !important;
-    padding: 150px 0 140px !important; // MÁS padding arriba para que el contenido baje más
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
-    display: block !important;
+    min-height: auto;
+    height: auto;
+    padding: 150px 0 140px; // MÁS padding arriba para que el contenido baje más
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: block;
   }
-  
   // Para teléfonos pequeños en vista de escritorio
   @media screen and (max-device-width: 480px) and (min-width: 480px) {
-    min-height: auto !important;
-    padding: 80px 0 90px !important; // Padding adecuado para teléfonos pequeños
-    display: block !important;
+    min-height: auto;
+    padding: 80px 0 90px; // Padding adecuado para teléfonos pequeños
+    display: block;
   }
   
   .new-hero-container {
@@ -80,15 +121,14 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
     
     // SOLO para vista de escritorio forzada en móviles
     @media screen and (max-device-width: 768px) and (min-width: 768px) {
-      padding: 0 30px !important;
-      max-width: 100% !important;
-      min-height: auto !important;
-      height: auto !important;
-      display: block !important;
+      padding: 0 30px;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      display: block;
     }
-    
     @media screen and (max-device-width: 480px) and (min-width: 480px) {
-      padding: 0 25px !important;
+      padding: 0 25px;
     }
   }
   
@@ -125,15 +165,14 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
     
     // SOLO para vista de escritorio forzada en móviles
     @media screen and (max-device-width: 768px) and (min-width: 768px) {
-      gap: 30px !important;
-      align-items: flex-start !important;
-      margin: 0 !important;
-      padding: 0 !important;
+      gap: 30px;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0;
     }
-    
     @media screen and (max-device-width: 480px) and (min-width: 480px) {
-      grid-template-columns: 1fr !important;
-      gap: 20px !important;
+      grid-template-columns: 1fr;
+      gap: 20px;
       text-align: center;
     }
   }
@@ -169,43 +208,52 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
         margin-bottom: 12px;
       }
       
-      .headline-main {
-        display: block;
-        color: $color-white;
-      }
-      
-      .headline-highlight {
-        display: block;
-        background: linear-gradient(135deg, $color-gold, $color-gold-light);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: none;
-      }
-      
-      .headline-sub {
-        display: block;
-        color: $color-white;
-        opacity: 0.9;
-      }
-    }
-    
-    .new-hero-subheadline {
-      font-size: 1.25rem;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.6;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-      animation: fadeInUp 0.8s ease 0.6s both;
-      @media (max-width: 768px) {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
-      }
-      
-      @media (max-width: 576px) {
-        margin-bottom: 18px;
-      }
-      
+
+// --- Scroll Divider Rediseñado (Global, no anidado) ---
+.scroll-divider-container {
+  width: 100%;
+  display: block;
+  margin: 32px auto 12px auto;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.scroll-divider-circle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(56,189,248,0.10);
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+.scroll-divider-circle svg {
+  display: block;
+}
+.arrow-group {
+  animation: arrow-bounce 1.2s infinite;
+}
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.scroll-divider-text {
+  margin-top: 0.5rem;
+  font-size: 1.08rem;
+  color: #fff;
+  background: none;
+  opacity: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+  display: block;
+}
       // Para vista de escritorio forzada en móviles
       @media screen and (max-device-width: 768px) {
         font-size: 1rem;
@@ -575,104 +623,14 @@ $color-visual-glow: rgba(255, 215, 0, 0.2);
     }
   }
   
-  .scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    animation: fadeIn 1s ease 1.5s both;
-    z-index: 15;
-    @media (max-width: 992px) {
-      bottom: 20px;
-    }
-    
-    @media (max-width: 768px) {
-      bottom: 60px; // Más espacio desde abajo para evitar superposición con imagen
-    }
-    
-    @media (max-width: 576px) {
-      bottom: 6px; // Ahora el indicador queda aún más pegado al borde inferior en móvil
-    }
-    @media (max-width: 400px) {
-      bottom: 2px; // Para pantallas muy pequeñas, casi al borde
-    }
-    
-    .scroll-text {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-      @media (max-width: 992px) {
-        font-size: 0.8rem;
-        margin-bottom: 8px;
-      }
-      
-      @media (max-width: 768px) {
-        font-size: 0.75rem;
-        margin-bottom: 6px;
-      }
-      
-      @media (max-width: 576px) {
-        font-size: 0.7rem;
-        margin-bottom: 5px;
-      }
-    }
-    
-    .scroll-arrow {
-      width: 2px;
-      height: 30px;
-      background: rgba(255, 255, 255, 0.5);
-      margin: 0 auto;
-      position: relative;
-      animation: bounceArrow 2s infinite;
-      @media (max-width: 992px) {
-        height: 25px;
-      }
-      
-      @media (max-width: 768px) {
-        height: 20px;
-      }
-      
-      @media (max-width: 576px) {
-        height: 18px;
-      }
-      
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%) rotate(45deg);
-        width: 8px;
-        height: 8px;
-        border-right: 2px solid rgba(255, 255, 255, 0.7);
-        border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-        @media (max-width: 992px) {
-          width: 6px;
-          height: 6px;
-        }
-        
-        @media (max-width: 768px) {
-          width: 5px;
-          height: 5px;
-        }
-        
-        @media (max-width: 576px) {
-          width: 4px;
-          height: 4px;
-        }
-      }
-    }
-  }
+  // Eliminado el SCSS antiguo del scroll-indicator y variantes
   
   .services-cards-responsive {
     gap: 2rem;
   }
   @media (max-width: 576px) {
     .services-cards-responsive {
-      gap: 0.1rem !important;
+      gap: 0.1rem;
     }
   }
 }

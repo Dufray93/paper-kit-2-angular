@@ -1,1 +1,11 @@
+/* Ajuste para que el contenido no quede debajo del navbar fijo */
+.wrapper {
+  padding-top: 56px; /* Altura estándar de navbar Bootstrap */
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    padding-top: 70px; /* Ajusta si tu navbar es más alta en escritorio */
+  }
+}
 /* You can add global styles to this file, and also import other style files */

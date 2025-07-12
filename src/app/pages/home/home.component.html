@@ -66,14 +66,16 @@
                 </div>
             </div>
         </div>
-        <!-- Indicador de scroll -->
-        <div class="scroll-indicator mt-4">
-            <span class="scroll-text">Desliza para explorar</span>
-            <div class="scroll-arrow"></div>
-        </div>
+
 
 
     </section>
+
+    <!-- Indicador de scroll rediseñado como divisor de sección (sin div extra) -->
+    <div id="scroll-divider" class="scroll-divider-container">
+      <div class="scroll-divider-text">Desliza para explorar</div>
+      <div class="scroll-divider-arrow"></div>
+    </div>
 
     <!-- SEPARADOR: Hero → Servicios (puntos) -->
     <div style="width:100%;text-align:center;padding:16px 0;">
@@ -86,112 +88,44 @@
       </svg>
     </div>
 
-    <!-- Servicios Section - Split Layout (cartas a la izquierda, texto a la derecha en PC; texto arriba en móvil) -->
+    <!-- Servicios Section Simplificada -->
     <section class="services-hero-section py-5">
-      <div class="container-fluid">
-        <div class="row align-items-center flex-lg-row flex-column-reverse">
-          <!-- Columna de texto (a la derecha en PC, arriba en móvil) -->
-          <div class="col-lg-5 col-md-6 mb-4 mb-md-0 order-lg-2 order-1 d-flex align-items-center">
-            <div class="services-text text-lg-start text-center pe-lg-5 w-100">
-              <h2 class="services-title mb-3">Nuestros Servicios Especializados</h2>
-              <p class="services-subtitle mb-4">Descubre la excelencia en cuidado visual que ofrecemos</p>
-              <ul class="list-unstyled mb-4">
-                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Exámenes de la vista profesionales</li>
-                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Lentes de contacto y monturas de diseño</li>
-                <li class="mb-2"><i class="fa fa-check-circle text-primary me-2"></i>Reparación, ajustes y asesoría personalizada</li>
-              </ul>
-              <a href="#" class="btn btn-primary btn-lg">Ver Todos los Servicios <i class="fa fa-arrow-right ms-2"></i></a>
-            </div>
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Imagen a la izquierda -->
+          <div class="col-lg-6 col-12 mb-4 mb-lg-0 text-center">
+            <img src="assets/img/popayan.jpg" alt="Servicios" class="img-fluid rounded shadow-lg" style="max-width: 85%;">
           </div>
-          <!-- Columna de cards (cartas originales, ahora a la izquierda en PC) -->
-          <div class="col-lg-7 col-md-6 order-lg-1 order-2">
-            <div class="card_container d-flex flex-wrap justify-content-center gap-4 services-cards-responsive">
-              <!-- Tarjeta 1 -->
-              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(0)"
-                (click)="toggleServiceCard(0)" title="Exámenes de la Vista" tabindex="0" role="button"
-                aria-label="Conocer más sobre Exámenes de la Vista">
-                <img src="assets/img/cards/examenes.jpg" alt="Exámenes de la Vista">
-                <div class="service-icon">
-                  <i class="nc-icon nc-glasses-2"></i>
+          <!-- Descripciones de servicios a la derecha -->
+          <div class="col-lg-6 col-12 d-flex flex-column justify-content-center">
+            <h2 class="mb-3 fw-bold text-white">Nuestros Servicios</h2>
+            <p class="mb-4 text-light">
+              Soluciones integrales para tu salud visual, con tecnología avanzada y atención personalizada.
+            </p>
+            <ul class="list-unstyled">
+              <li class="mb-4 d-flex align-items-start">
+                <span class="me-3 text-info"><i class="nc-icon nc-glasses-2 fs-2"></i></span>
+                <div>
+                  <strong class="text-white">Exámenes Visuales Especializados</strong>
+                  <div class="text-light small">Diagnóstico preciso y personalizado.</div>
                 </div>
-                <div class="card-overlay">
-                  <h3 class="service-title">Exámenes de la Vista</h3>
-                  <p class="service-description">Tecnología avanzada para el cuidado de tu salud visual</p>
-                  <div class="card-cta">
-                    <span class="cta-text">Conocer más</span>
-                    <i class="nc-icon nc-minimal-right"></i>
-                  </div>
+              </li>
+              <li class="mb-4 d-flex align-items-start">
+                <span class="me-3 text-success"><i class="nc-icon nc-single-02 fs-2"></i></span>
+                <div>
+                  <strong class="text-white">Asesoría en Monturas</strong>
+                  <div class="text-light small">Encuentra el estilo perfecto para ti.</div>
                 </div>
-              </div>
-              <!-- Tarjeta 2 -->
-              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(1)"
-                (click)="toggleServiceCard(1)" title="Lentes de Contacto" tabindex="0" role="button"
-                aria-label="Conocer más sobre Lentes de Contacto">
-                <img src="assets/img/cards/lentescontacto.jpg" alt="Lentes de Contacto">
-                <div class="service-icon">
-                  <i class="nc-icon nc-circle-10"></i>
+              </li>
+              <li class="mb-4 d-flex align-items-start">
+                <span class="me-3 text-warning"><i class="nc-icon nc-sun-fog-29 fs-2"></i></span>
+                <div>
+                  <strong class="text-white">Lentes de Sol y Fotocromáticos</strong>
+                  <div class="text-light small">Protección y comodidad en todo momento.</div>
                 </div>
-                <div class="card-overlay">
-                  <h3 class="service-title">Lentes de Contacto</h3>
-                  <p class="service-description">Adaptación personalizada para máxima comodidad</p>
-                  <div class="card-cta">
-                    <span class="cta-text">Conocer más</span>
-                    <i class="nc-icon nc-minimal-right"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- Tarjeta 3 -->
-              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(2)"
-                (click)="toggleServiceCard(2)" title="Monturas de Diseño" tabindex="0" role="button"
-                aria-label="Conocer más sobre Monturas de Diseño">
-                <img src="assets/img/cards/uv.jpg" alt="Monturas de Diseño">
-                <div class="service-icon">
-                  <i class="nc-icon nc-diamond"></i>
-                </div>
-                <div class="card-overlay">
-                  <h3 class="service-title">Monturas de Diseño</h3>
-                  <p class="service-description">Las mejores marcas y estilos para tu personalidad</p>
-                  <div class="card-cta">
-                    <span class="cta-text">Conocer más</span>
-                    <i class="nc-icon nc-minimal-right"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- Tarjeta 4 -->
-              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(3)"
-                (click)="toggleServiceCard(3)" title="Reparación y Ajustes" tabindex="0" role="button"
-                aria-label="Conocer más sobre Reparación y Ajustes">
-                <img src="assets/img/cards/reparacion.jpg" alt="Reparación y Ajustes">
-                <div class="service-icon">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                </div>
-                <div class="card-overlay">
-                  <h3 class="service-title">Reparación y Ajustes</h3>
-                  <p class="service-description">Servicio técnico especializado y garantizado</p>
-                  <div class="card-cta">
-                    <span class="cta-text">Conocer más</span>
-                    <i class="nc-icon nc-minimal-right"></i>
-                  </div>
-                </div>
-              </div>
-              <!-- Tarjeta 5 -->
-              <div class="expandable-card" [class.mobile-expanded]="isServiceCardExpanded(4)"
-                (click)="toggleServiceCard(4)" title="Asesoría Personalizada" tabindex="0" role="button"
-                aria-label="Conocer más sobre Asesoría Personalizada">
-                <img src="assets/img/cards/asesoria.jpg" alt="Asesoría Personalizada">
-                <div class="service-icon">
-                  <i class="nc-icon nc-single-02"></i>
-                </div>
-                <div class="card-overlay">
-                  <h3 class="service-title">Asesoría Personalizada</h3>
-                  <p class="service-description">Encuentra la solución visual perfecta para ti</p>
-                  <div class="card-cta">
-                    <span class="cta-text">Conocer más</span>
-                    <i class="nc-icon nc-minimal-right"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </li>
+            </ul>
+            <a href="#" class="btn btn-primary btn-lg rounded-pill mt-3 px-4 px-md-5 d-inline-block">Ver todos los servicios</a>
           </div>
         </div>
       </div>
@@ -213,7 +147,7 @@
         <div class="container-fluid">
             <div class="row align-items-center">
                 <!-- Texto a la izquierda -->
-                <div class="col-lg-4 col-md-5">
+                <div class="col-lg-4 col-md-5 mb-5 mb-md-0">
                     <div class="productos-text">
                         <h2 class="productos-title">Nuestros Productos</h2>
                         <h3 class="productos-subtitle">UNA SOLUCIÓN PARA CADA NECESIDAD</h3>
@@ -240,15 +174,15 @@
                             </div>
                         </div>
 
-                        <!-- Botón CTA Premium -->
-                        <a href="#" class="productos-cta" (click)="navigateToProducts()">
+                        <!-- Botón CTA Premium mejorado -->
+                        <a href="#" class="btn btn-primary btn-lg rounded-pill shadow productos-cta mt-3 w-100 w-md-auto d-block d-md-inline-block text-center" (click)="navigateToProducts()">
                             <span>Ver Catálogo Completo</span>
-                            <i class="fa fa-arrow-right"></i>
+                            <i class="fa fa-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Grid de productos 2x3 -->
+                <!-- Grid de productos original (restaurado) -->
                 <div class="col-lg-8 col-md-7">
                     <div class="products-grid">
                         <!-- Producto 1: Lentes Oftálmicos -->
@@ -269,7 +203,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Producto 2: Monturas de Diseño -->
                         <div class="product-card" (click)="navigateToProducts()"
                             data-bg="assets/img/sliderProductos/marca.jpg"
@@ -288,7 +221,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Producto 3: Lentes de Sol -->
                         <div class="product-card" (click)="navigateToProducts()"
                             data-bg="assets/img/sliderProductos/sol.jpg"
@@ -307,7 +239,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Producto 4: Lentes Fotocromáticos -->
                         <div class="product-card" (click)="navigateToProducts()"
                             data-bg="assets/img/sliderProductos/monturas.jpg"
@@ -326,7 +257,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Producto 5: Lentes de Contacto -->
                         <div class="product-card" (click)="navigateToProducts()"
                             data-bg="assets/img/sliderProductos/accesorios.jpg"
@@ -345,7 +275,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Producto 6: Accesorios -->
                         <div class="product-card" (click)="navigateToProducts()"
                             data-bg="assets/img/sliderProductos/lentes.jpg"
@@ -369,7 +298,7 @@
             </div>
 
             <!-- Slider de Marcas - Integrado con Productos -->
-            <div class="marcas-integrated">
+            <div class="marcas-integrated mt-4">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-10 col-xl-8">
@@ -377,48 +306,21 @@
                                 <p class="marcas-subtitle">Marcas que respaldan nuestros productos</p>
                             </div>
                             <div class="brands-slider">
-                                <div class="brands-track">
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_1.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_2.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_3.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_4.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_5.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_6.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_7.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_8.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_9.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_10.png" alt="Brand Logo">
-                                    </div>
-
+                                <div class="brands-track d-flex flex-nowrap">
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_1.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_2.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_3.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_4.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_5.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_6.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_7.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_8.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_9.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_10.png" alt="Brand Logo"></div>
                                     <!-- Duplicación mínima para efecto infinito -->
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_1.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_2.png" alt="Brand Logo">
-                                    </div>
-                                    <div class="brand-item">
-                                        <img src="assets/img/autoslider/slider1_3.png" alt="Brand Logo">
-                                    </div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_1.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_2.png" alt="Brand Logo"></div>
+                                    <div class="brand-item"><img src="assets/img/autoslider/slider1_3.png" alt="Brand Logo"></div>
                                 </div>
                             </div>
                         </div>
@@ -439,70 +341,73 @@
       </svg>
     </div>
 
-    <!-- Referidos Section -->
+    <!-- Referidos Section Elegante y Profesional -->
     <div class="referidos-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h2 class="referidos-title">Sistema de Referidos Multinivel</h2>
-                    <h3 class="referidos-subtitle">GANA EN 3 NIVELES DE PROFUNDIDAD</h3>
-                    <p class="referidos-description">
-                        Nuestro sistema de referidos multinivel te permite ganar recompensas por cada compra
-                        que realicen tus referidos directos y los referidos de tus referidos, hasta 3 niveles
-                        de profundidad. Comparte tu código único y comienza a generar ingresos pasivos.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="referidos-info-card">
-                        <div class="info-icon nivel-1">
-                            <i class="fa fa-user-plus"></i>
-                        </div>
-                        <h4>Nivel 1</h4>
-                        <div class="reward-badge">10% + 500 puntos</div>
-                        <p>Por cada compra de tus referidos directos</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="referidos-info-card">
-                        <div class="info-icon nivel-2">
-                            <i class="fa fa-users"></i>
-                        </div>
-                        <h4>Nivel 2</h4>
-                        <div class="reward-badge">8% + 400 puntos</div>
-                        <p>Por compras de referidos de tus referidos</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="referidos-info-card">
-                        <div class="info-icon nivel-3">
-                            <i class="fa fa-sitemap"></i>
-                        </div>
-                        <h4>Nivel 3</h4>
-                        <div class="reward-badge">6% + 300 puntos</div>
-                        <p>Por compras del tercer nivel de profundidad</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 text-center">
-                    <div class="referidos-actions">
-                        <button class="btn btn-primary btn-lg btn-referidos" (click)="navigateToReferidos()">
-                            <i class="fa fa-share-alt"></i>
-                            Empezar a Referir
-                        </button>
-                        <div class="referidos-info">
-                            <small>Kit mensual requerido para seguir participando activamente</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <h2 class="referidos-title" style="color:#e0c36b;font-weight:800;letter-spacing:1px;text-shadow:0 2px 12px #1a2236;">Sistema de Referidos Multinivel</h2>
+            <h3 class="referidos-subtitle" style="color:#b6b9c9;font-weight:600;letter-spacing:0.5px;">GANA EN 3 NIVELES DE PROFUNDIDAD</h3>
+            <p class="referidos-description" style="color:#b6b9c9;max-width:700px;margin:0 auto 0.5rem auto;font-size:1.15rem;">
+              Nuestro sistema de referidos multinivel te permite ganar recompensas por cada compra
+              que realicen tus referidos directos y los referidos de tus referidos, hasta 3 niveles
+              de profundidad. Comparte tu código único y comienza a generar ingresos pasivos.
+            </p>
+          </div>
         </div>
+        <div class="row justify-content-center">
+          <!-- Card Nivel 1 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card card-pricing card-plain text-center h-100 shadow-lg border-0" style="background:linear-gradient(135deg,#232a3b 80%,#e0c36b 120%);color:#fff;backdrop-filter:blur(2px);border-radius:1.5rem;box-shadow:0 8px 32px #1a2236b0;">
+              <div class="card-body py-4">
+                <div class="icon icon-shape" style="background:linear-gradient(135deg,#e0c36b 60%,#232a3b 100%);color:#232a3b;width:68px;height:68px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 4px 16px #e0c36b80;border-radius:50%;margin:0 auto 1rem auto;">
+                  <i class="fa fa-user-plus"></i>
+                </div>
+                <h4 class="card-title mb-2" style="color:#e0c36b;font-weight:700;">Nivel 1</h4>
+                <div class="badge mb-2" style="background:linear-gradient(90deg,#e0c36b 60%,#fffbe6 100%);color:#232a3b;font-size:1.05rem;padding:8px 22px;border-radius:22px;box-shadow:0 2px 8px #e0c36b80;font-weight:600;">10% + 500 puntos</div>
+                <p class="mb-0" style="color:#b6b9c9;">Por cada compra de tus referidos directos</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Nivel 2 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card card-pricing card-plain text-center h-100 shadow-lg border-0" style="background:linear-gradient(135deg,#232a3b 80%,#b6b9c9 120%);color:#fff;backdrop-filter:blur(2px);border-radius:1.5rem;box-shadow:0 8px 32px #1a2236b0;">
+              <div class="card-body py-4">
+                <div class="icon icon-shape" style="background:linear-gradient(135deg,#b6b9c9 60%,#232a3b 100%);color:#232a3b;width:68px;height:68px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 4px 16px #b6b9c980;border-radius:50%;margin:0 auto 1rem auto;">
+                  <i class="fa fa-users"></i>
+                </div>
+                <h4 class="card-title mb-2" style="color:#b6b9c9;font-weight:700;">Nivel 2</h4>
+                <div class="badge mb-2" style="background:linear-gradient(90deg,#b6b9c9 60%,#fffbe6 100%);color:#232a3b;font-size:1.05rem;padding:8px 22px;border-radius:22px;box-shadow:0 2px 8px #b6b9c980;font-weight:600;">8% + 400 puntos</div>
+                <p class="mb-0" style="color:#b6b9c9;">Por compras de referidos de tus referidos</p>
+              </div>
+            </div>
+          </div>
+          <!-- Card Nivel 3 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card card-pricing card-plain text-center h-100 shadow-lg border-0" style="background:linear-gradient(135deg,#232a3b 80%,#38bdf8 120%);color:#fff;backdrop-filter:blur(2px);border-radius:1.5rem;box-shadow:0 8px 32px #1a2236b0;">
+              <div class="card-body py-4">
+                <div class="icon icon-shape" style="background:linear-gradient(135deg,#38bdf8 60%,#232a3b 100%);color:#232a3b;width:68px;height:68px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;box-shadow:0 4px 16px #38bdf880;border-radius:50%;margin:0 auto 1rem auto;">
+                  <i class="fa fa-sitemap"></i>
+                </div>
+                <h4 class="card-title mb-2" style="color:#38bdf8;font-weight:700;">Nivel 3</h4>
+                <div class="badge mb-2" style="background:linear-gradient(90deg,#38bdf8 60%,#fffbe6 100%);color:#232a3b;font-size:1.05rem;padding:8px 22px;border-radius:22px;box-shadow:0 2px 8px #38bdf880;font-weight:600;">6% + 300 puntos</div>
+                <p class="mb-0" style="color:#b6b9c9;">Por compras del tercer nivel de profundidad</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-12 text-center">
+            <button class="btn btn-lg btn-round px-5 py-3 mb-3" (click)="navigateToReferidos()" style="background:linear-gradient(90deg,#e0c36b 60%,#38bdf8 100%);color:#232a3b;font-weight:700;font-size:1.2rem;box-shadow:0 4px 16px #1a2236b0;border:none;">
+              <i class="fa fa-share-alt me-2"></i>
+              Empezar a Referir
+            </button>
+            <div class="referidos-info mt-2 d-flex justify-content-center">
+              <small class="px-3 py-2 rounded shadow-sm border border-warning" style="background:rgba(35,42,59,0.98);color:#e0c36b;font-size:0.98rem;opacity:0.98;max-width:370px;border-width:2px;font-weight:600;letter-spacing:0.5px;">Kit mensual requerido para seguir participando activamente</small>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- SEPARADOR: Referidos → Testimonios (líneas dobles) -->
