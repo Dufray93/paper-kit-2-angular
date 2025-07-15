@@ -1,0 +1,98 @@
+// Fondo animado igual que en home
+@import '../home/_background-animations';
+.badge-demo-product {
+  background: linear-gradient(90deg, #38bdf8 0%, #f59e0b 100%);
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5em 1.1em;
+  border-radius: 1.2em;
+  box-shadow: 0 2px 8px rgba(56,189,248,0.12);
+  letter-spacing: 0.5px;
+}
+
+.producto-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #f3f6fa;
+  border: none;
+  &:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 24px rgba(56,189,248,0.18);
+  }
+  img {
+    object-fit: cover;
+    height: 210px;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+}
+
+.card-body-compact {
+  background: #fff;
+  color: #23263a;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  padding: 1.1rem 1rem 0.7rem 1rem;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.card-body-compact .card-title,
+.card-body-compact .card-text {
+  color: #23263a;
+}
+
+.btn-whatsapp-product {
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  padding: 0.35em 1.1em 0.35em 0.9em;
+  font-size: 1em;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #25d36644;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: background 0.18s, transform 0.18s;
+  &:hover {
+    background: #1ebe5d;
+    color: #fff;
+    transform: scale(1.06);
+  }
+}
+
+.product-stars {
+  font-size: 1.1em;
+  letter-spacing: 0.08em;
+  color: #f59e0b;
+}
+
+
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: transparent;
+  padding-top: 56px;
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    padding-top: 70px;
+  }
+}
+
+.productos-section {
+  background: transparent;
+  border-radius: 1rem;
+  color: #fff;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+}

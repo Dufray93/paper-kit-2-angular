@@ -1,0 +1,47 @@
+<!-- Fondo animado igual que en home -->
+<div class="animated-background">
+  <div class="box">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <section class="productos-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Nuestros Productos</h2>
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let producto of productos">
+          <div class="card h-100 shadow-sm producto-card">
+            <img [src]="producto.imagen" class="card-img-top" [alt]="producto.nombre">
+            <div class="card-body d-flex flex-column card-body-compact">
+              <h5 class="card-title mb-1">{{ producto.nombre }}</h5>
+              <p class="card-text text-muted small mb-1">{{ producto.tipo }}</p>
+              <p class="card-text mb-2" style="font-size:0.97em;">{{ producto.descripcion }}</p>
+              <div class="d-flex align-items-center justify-content-between mt-auto gap-2">
+                <div class="product-stars">
+                  <i class="fa fa-star text-warning"></i>
+                  <i class="fa fa-star text-warning"></i>
+                  <i class="fa fa-star text-warning"></i>
+                  <i class="fa fa-star text-warning"></i>
+                  <i class="fa fa-star-half-o text-warning"></i>
+                </div>
+                <a class="btn btn-success btn-sm btn-whatsapp-product" href="https://wa.me/573000000000" target="_blank" rel="noopener" title="Cotizar por WhatsApp">
+                  <i class="fa fa-whatsapp me-1"></i> Cotizar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

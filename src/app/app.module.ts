@@ -12,7 +12,10 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { ComponentsModule } from './components/components.module';
 import { ExamplesModule } from './examples/examples.module';
+
 import { ReferralsModule } from './pages/referrals/referrals.module';
+import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './pages/products/products.module';
 
 
 @NgModule({
@@ -30,6 +33,8 @@ import { ReferralsModule } from './pages/referrals/referrals.module';
     ComponentsModule,
     ExamplesModule,
     ReferralsModule,
+    AuthModule,
+    ProductsModule,
     AppRoutingModule,
   ],
   providers: [],

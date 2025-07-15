@@ -24,7 +24,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/referrals']);
   }
 
-  navigateToProducts(): void {
+  navigateToProducts(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+    }
     this.router.navigate(['/products']);
   }
   

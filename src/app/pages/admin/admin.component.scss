@@ -1,0 +1,26 @@
+.admin-dashboard-wrapper {
+  min-height: 80vh;
+  padding: 3rem 1rem 2rem 1rem;
+  .admin-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    h2 {
+      color: #38bdf8;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .lead {
+      color: #b6b9c9;
+      font-size: 1.18rem;
+    }
+  }
+  .admin-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 18px #232a3b22;
+    padding: 2.2rem 1.5rem;
+    min-height: 300px;
+  }
+}
