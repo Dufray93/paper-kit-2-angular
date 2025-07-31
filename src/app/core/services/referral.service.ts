@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserReferralsDto } from '../../shared/models/user-referrals-dto.model';
+import { UserReferralsDto } from '../../models/user-referrals-dto.model';
 
 @Injectable({ providedIn: 'root' })
 export class ReferralService {

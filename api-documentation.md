@@ -6,7 +6,15 @@ Este documento proporciona información sobre los endpoints disponibles en el ba
 
 La URL base para todas las solicitudes API es: `http://localhost:8080` (para desarrollo local)
 
+
+
+
+
+
 ## Configuración CORS
+
+
+
 
 El backend está configurado para permitir solicitudes desde cualquier origen (`*`) durante el desarrollo. En producción, debes especificar los orígenes exactos permitidos.
 
@@ -48,8 +56,10 @@ El backend implementa un sistema unificado de manejo de errores que garantiza re
 El sistema utiliza las siguientes excepciones personalizadas:
 
 1. `ResourceNotFoundException`: Cuando un recurso no se encuentra (404)
+
 2. `ResourceAlreadyExistsException`: Cuando se intenta crear un recurso que ya existe (409)
 3. `BusinessRuleViolationException`: Cuando se viola una regla de negocio (400)
+
 
 ## Estructura de la API
 
@@ -83,10 +93,12 @@ El sistema utiliza las siguientes excepciones personalizadas:
 - **Respuesta Exitosa**:
   - **Código**: 201 Created
   - **Contenido**: Objeto `UserDto` del usuario creado
+
 - **Respuestas de Error**:
   - **Código**: 400 Bad Request - Datos del usuario inválidos
   - **Código**: 404 Not Found - Código de referido no encontrado
   - **Código**: 409 Conflict - Email ya registrado
+
 
 #### 1.3 Validar código de referido
 
@@ -102,11 +114,13 @@ El sistema utiliza las siguientes excepciones personalizadas:
 #### 1.4 Obtener historial de recompensas paginado
 
 - **URL**: `/api/user/users/{userId}/rewards`
+
 - **Método**: GET
 - **URL Params**: `userId` - ID del usuario
 - **Query Params**:
   - `page` (opcional, default 0) - Número de página
   - `size` (opcional, default 20) - Tamaño de página
+
 - **Respuesta Exitosa**:
   - **Código**: 200 OK
   - **Contenido**: Página de objetos `ReferralRewardDto`
@@ -157,7 +171,284 @@ El sistema utiliza las siguientes excepciones personalizadas:
   - **Código**: 200 OK
   - **Contenido**: Lista de objetos `PurchaseDto`
 
-### 3. Gestión de Kits
+
+### 3. Gestión de Productos
+
+#### 3.1 Listar productos con filtros y paginación
+
+- **URL**: `/api/products`
+- **Método**: GET
+- **Query Params**:
+  - `marca` (opcional): nombre o id de la marca
+  - `material` (opcional): nombre o id del material
+  - `forma` (opcional): nombre o id de la forma
+  - `color` (opcional): nombre o id del color
+  - `tipoLente` (opcional): tipo de lente
+  - `polarizado` (opcional): boolean
+  - `proteccionUV` (opcional): boolean
+  - `duracion` (opcional): duración de lente de contacto
+  - `genero` (opcional): hombre, mujer, niño, niña, unisex
+  - `precioMin` (opcional): precio mínimo
+  - `precioMax` (opcional): precio máximo
+  - `categoria` (opcional): tipo de producto
+  - `nombre` (opcional): búsqueda por nombre
+  - `page` (opcional): número de página (default 0)
+  - `size` (opcional): tamaño de página (default 20)
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Contenido**: Página de objetos `ProductoDto` y subtipos
+    ```json
+    {
+      "content": [ /* lista de productos filtrados */ ],
+      "totalElements": 120,
+      "totalPages": 6,
+      "size": 20,
+      "number": 0
+    }
+    ```
+
+- **Ejemplo de consulta**:
+  `/api/products?marca=Ray-Ban&genero=hombre&precioMin=50000&precioMax=150000&categoria=montura&page=0&size=20`
+
+#### 3.2 Obtener producto por SKU
+
+- **URL**: `/api/products/sku/{sku}`
+- **Método**: GET
+- **URL Params**: `sku` - SKU único del producto
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Contenido**: Objeto `ProductoDto` o subtipo
+  - **Código**: 404 Not Found - Si el SKU no existe
+
+#### 3.3 Crear un nuevo producto
+
+- **URL**: `/api/admin/products`
+- **Método**: POST
+- **Data Params**: Objeto `ProductoDto` (ver modelo abajo)
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Contenido**: Objeto `ProductoDto` creado
+  - **Código**: 409 Conflict - Si el SKU ya existe
+
+#### 3.4 Actualizar producto existente
+
+- **URL**: `/api/admin/products/{id}`
+- **Método**: PUT
+- **URL Params**: `id` - ID del producto
+- **Data Params**: Objeto `ProductoDto` con los campos a modificar
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Contenido**: Objeto `ProductoDto` actualizado
+  - **Código**: 404 Not Found - Si el producto no existe
+
+#### 3.5 Eliminar producto
+
+- **URL**: `/api/admin/products/{id}`
+- **Método**: DELETE
+- **URL Params**: `id` - ID del producto
+- **Respuesta Exitosa**:
+  - **Código**: 204 No Content
+  - **Código**: 404 Not Found - Si el producto no existe
+
+### Modelo de Datos: ProductoDto (Herencia)
+
+El catálogo de productos se modela usando herencia para máxima extensibilidad y calidad. Todos los productos comparten atributos básicos (clase base `ProductoDto`) y cada subtipo define sus propios campos.
+
+#### ProductoDto (clase base)
+```json
+{
+  "id": 1,
+  "sku": "LNT-001",                // Requerido, único, identificador de inventario
+  "nombre": "Lentes Oftálmicos",   // Requerido
+  "tipo": "lente",                 // Requerido: "lente", "montura", "gafas_sol", "accesorio", etc.
+  "descripcion": "Lentes para corrección visual.",
+  "imagen": "assets/img/sliderProductos/lentes.jpg",
+  "precio": 120000,
+  "marca": "Essilor",
+  "categoria": "Premium",
+  "stock": 10,
+  "activo": true                    // Indica si el producto está visible en el catálogo
+}
+```
+
+#### MonturaDto (extiende ProductoDto)
+```json
+{
+  "id": 2,
+  "sku": "MNT-001",
+  "nombre": "Montura Acetato",
+  "tipo": "montura",
+  "descripcion": "Montura ligera de acetato.",
+  "imagen": "assets/img/sliderProductos/montura.jpg",
+  "precio": 80000,
+  "marca": "Ray-Ban",
+  "categoria": "Clásico",
+  "stock": 5,
+  "activo": true,
+  "forma": "rectangular",           // Específico de montura
+  "material": "acetato",
+  "color": "negro",
+  "tamaño": "mediano"
+  "genero": "hombre" // hombre, mujer, niño, niña, unisex
+}
+```
+
+#### LenteSolDto (extiende ProductoDto)
+```json
+{
+  "id": 3,
+  "sku": "SOL-001",
+  "nombre": "Gafas de Sol Polarizadas",
+  "tipo": "gafas_sol",
+  "descripcion": "Protección UV400, polarizadas.",
+  "imagen": "assets/img/sliderProductos/sol.jpg",
+  "precio": 150000,
+  "marca": "Oakley",
+  "categoria": "Deportivo",
+  "stock": 7,
+  "activo": true,
+  "proteccionUV": true,              // Específico de gafas de sol
+  "polarizado": true,
+  "colorLente": "gris"
+  "genero": "unisex" // hombre, mujer, niño, niña, unisex
+}
+```
+
+
+#### Accesorios
+
+Los accesorios no requieren un DTO específico, ya que no tienen atributos propios ni filtrado especial. Se representan simplemente como instancias de `ProductoDto` con `tipo = "accesorio"`.
+
+Ejemplo:
+```json
+{
+  "id": 4,
+  "sku": "ACC-001",
+  "nombre": "Estuche rígido",
+  "tipo": "accesorio",
+  "descripcion": "Estuche rígido para gafas.",
+  "imagen": "assets/img/sliderProductos/estuche.jpg",
+  "precio": 20000,
+  "marca": "Genérico",
+  "categoria": "Accesorios",
+  "stock": 20,
+  "activo": true
+}
+```
+
+
+**Notas:**
+* El campo `tipo` determina el subtipo y los campos adicionales esperados.
+* El frontend puede filtrar y mostrar campos específicos según el tipo de producto.
+* Se recomienda usar discriminadores en la API para facilitar la deserialización en el frontend.
+* Los endpoints de productos devuelven una lista polimórfica de ProductoDto y subtipos (excepto accesorios, que solo usan ProductoDto).
+
+---
+
+## Catálogos de Atributos para Filtros y CRUD de Productos
+
+
+Para garantizar filtros consistentes, validación y administración eficiente de los productos, los siguientes atributos deben gestionarse como entidades independientes (catálogos) en la base de datos y exponer endpoints CRUD:
+
+- **Marca** (`marca`): Catálogo de marcas disponibles.
+- **Material** (`material`): Catálogo de materiales de montura/lente.
+- **Forma** (`forma`): Catálogo de formas de montura (rectangular, redonda, etc.).
+- **Color** (`color`, `colorLente`): Catálogo de colores de montura o lente.
+- **Tamaño** (`tamaño`): Catálogo de tamaños estándar (pequeño, mediano, grande).
+- **Categoría** (`categoria`): Catálogo de categorías comerciales (Premium, Clásico, Deportivo, etc.).
+
+Adicionalmente, el atributo **Género** (`genero`) debe estar presente en monturas y gafas de sol, pero no requiere CRUD ya que sus valores son fijos y universales:
+
+- **Género** (`genero`): hombre, mujer, niño, niña, unisex
+
+El filtro de género solo se mostrará en el frontend para monturas y gafas de sol.
+
+### Ventajas de este enfoque
+
+- Permite CRUD de valores desde un panel de administración.
+- Los productos referencian estos catálogos por id (relación foránea), evitando duplicados y errores de escritura.
+- El frontend puede consultar estos catálogos para mostrar selects y filtros consistentes, incluso si aún no hay productos de todos los valores.
+- Se pueden agregar nuevos valores de forma controlada y validada.
+
+### Endpoints recomendados para catálogos
+
+Por cada catálogo, se recomienda exponer endpoints RESTful estándar:
+
+- `GET    /api/catalogs/marcas`      → Listar todas las marcas
+- `POST   /api/catalogs/marcas`      → Crear nueva marca
+- `PUT    /api/catalogs/marcas/{id}` → Editar marca
+- `DELETE /api/catalogs/marcas/{id}` → Eliminar marca (soft delete recomendado)
+
+Repetir para materiales, formas, colores, tamaños y categorías:
+
+- `/api/catalogs/materiales`
+- `/api/catalogs/formas`
+- `/api/catalogs/colores`
+- `/api/catalogs/tamanos`
+- `/api/catalogs/categorias`
+
+### Ejemplo de entidad de catálogo (Marca)
+```json
+{
+  "id": 1,
+  "nombre": "Ray-Ban",
+  "activo": true
+}
+```
+
+### Notas de implementación
+
+- Al crear/editar un producto, el frontend debe consultar estos catálogos y mostrar los valores en un select.
+- Los filtros del catálogo de productos también deben usar estos catálogos para mostrar solo opciones válidas.
+- Si se requiere agregar nuevos valores, debe hacerse desde el CRUD de catálogos, no directamente al crear un producto.
+
+---
+
+---
+
+### Ejemplo de integración con Carrito de Compras
+
+#### CartItemDto
+```json
+{
+  "producto": {
+    // Puede ser cualquier subtipo de ProductoDto (ver arriba)
+  },
+  "cantidad": 2
+}
+```
+
+#### CartDto
+```json
+{
+  "items": [
+    {
+      "producto": { /* MonturaDto */ },
+      "cantidad": 1
+    },
+    {
+      "producto": { /* LenteSolDto */ },
+      "cantidad": 2
+    }
+  ],
+  "total": 380000
+}
+```
+
+**Notas carrito:**
+- El carrito puede contener productos de cualquier subtipo.
+- El backend debe validar stock y calcular el total dinámicamente.
+- Se recomienda exponer endpoints como `/api/cart` para gestión del carrito por usuario.
+- El campo `sku` es obligatorio y único, recomendado para búsquedas y gestión de inventario.
+- El campo `id` es la clave primaria interna, no debe usarse como identificador público.
+- El campo `activo` permite ocultar productos sin eliminarlos (soft delete). El frontend solo debe mostrar productos activos.
+- Los atributos opcionales pueden dejarse nulos o incluirse en la descripción si no aplican.
+- El frontend actual utiliza los campos: `nombre`, `tipo`, `descripcion`, `imagen`, `precio`, y puede mostrar `marca` y `categoria` si están presentes.
+
+---
+
+### 4. Gestión de Kits
 
 #### 3.1 Registrar una nueva compra de kit
 

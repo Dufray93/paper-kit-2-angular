@@ -1,3 +1,157 @@
+// Filtros PC
+.filtros-pc-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.18);
+  z-index: 1040;
+}
+
+.filtros-pc-panel {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 400px;
+  max-width: 400px;
+  height: 90vh;
+  background: #fff;
+  border-top-left-radius: 1.2rem;
+  border-bottom-left-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(56,189,248,0.18);
+  z-index: 1050;
+  overflow-y: auto;
+  padding: 1.2rem 1rem 1rem 1rem;
+  animation: fadeInRight 0.3s;
+}
+// Filtros móvil/tablet
+
+.filtros-movil-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.18);
+  z-index: 1040;
+}
+
+.filtros-movil-panel {
+  position: fixed;
+  top: 70px; // altura navbar
+  right: 0;
+  width: 92vw;
+  max-width: 400px;
+  height: 90vh;
+  background: #fff;
+  border-top-left-radius: 1.2rem;
+  border-bottom-left-radius: 1.2rem;
+  box-shadow: 0 8px 32px rgba(56,189,248,0.18);
+  z-index: 1050;
+  overflow-y: auto;
+  padding: 1.2rem 1rem 1rem 1rem;
+  animation: fadeInRight 0.3s;
+}
+@media (min-width: 992px) {
+  .filtros-movil-panel, .filtros-movil-overlay {
+    display: none !important;
+  }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+// X de cierre personalizada para filtros (igual que notificaciones)
+.close-filtros-x {
+  color: #222 !important;
+  font-size: 1.3rem !important;
+  line-height: 1;
+  opacity: 1;
+  border: none;
+  background: none;
+  box-shadow: none;
+  transition: color 0.2s;
+}
+.close-filtros-x:hover {
+  color: #0d47a1 !important;
+  text-decoration: none;
+}
+.close-filtros-x .nc-icon {
+  vertical-align: middle;
+}
+.offcanvas .btn-close,
+.offcanvas .btn-close.text-reset,
+.offcanvas .btn-close:focus,
+.offcanvas .btn-close:active,
+.offcanvas .btn-close:after,
+.offcanvas .btn-close:before {
+  color: #222 !important;
+  opacity: 1 !important;
+  font-size: 1.05rem !important;
+  font-weight: bold !important;
+  filter: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+// Mejorar contraste de la X de cierre y elementos clave de filtros
+
+// X de cierre más pequeña y con mejor contraste
+
+// X de cierre en todas las vistas (sidebar, offcanvas, móvil/tablet)
+.offcanvas .btn-close,
+.sidebar-filtros .btn-close,
+.offcanvas .btn-close.text-reset,
+.sidebar-filtros .btn-close.text-reset {
+  color: #222 !important;
+  opacity: 1 !important;
+  font-size: 1.05rem !important;
+  font-weight: bold !important;
+  filter: none !important;
+}
+
+// Títulos y textos destacados con azul más oscuro y buen contraste
+.offcanvas-title, .text-primary, .fw-bold, .accordion-button:not(.collapsed) {
+  color: #0d47a1 !important;
+}
+
+.accordion-button {
+  color: #222;
+  background: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #e3f2fd;
+  color: #0d47a1 !important;
+}
+
+.accordion-item {
+  border: 1px solid #e0e0e0;
+}
+
+// Sidebar y offcanvas: fondo y contraste
+.offcanvas, .sidebar-filtros {
+  background: #fff;
+  color: #222;
+}
+
+.card.shadow-sm {
+  border: 1px solid #e0e0e0;
+}
+
+.accordion-button {
+  color: #333;
+  background: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.accordion-item {
+  border: 1px solid #e0e0e0;
+}
 // Fondo animado igual que en home
 @import '../home/_background-animations';
 .badge-demo-product {
@@ -72,12 +226,31 @@
 
 
 
+
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   position: relative;
   z-index: 1;
-  min-height: 100vh;
-  background: transparent;
-  padding-top: 56px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+
+.main-content {
+  flex: 1 0 auto;
+  margin-bottom: 70px; // margen para que el footer no tape el contenido
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    padding-top: 70px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -90,9 +263,9 @@
   background: transparent;
   border-radius: 1rem;
   color: #fff;
+  box-shadow: none;
+}
+body, :host {
+  background: transparent;
 }
 
-.wrapper {
-  position: relative;
-  z-index: 1;
-}

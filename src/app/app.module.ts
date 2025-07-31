@@ -15,7 +15,9 @@ import { ExamplesModule } from './examples/examples.module';
 
 import { ReferralsModule } from './pages/referrals/referrals.module';
 import { AuthModule } from './auth/auth.module';
+
 import { ProductsModule } from './pages/products/products.module';
+// import eliminado: ProductosCatalogoModule
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { ProductsModule } from './pages/products/products.module';
     AuthModule,
     ProductsModule,
     AppRoutingModule,
+    // ProductosCatalogoModule eliminado
   ],
   providers: [],
   bootstrap: [AppComponent]

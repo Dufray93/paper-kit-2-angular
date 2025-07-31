@@ -12,6 +12,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { ReferralsComponent } from './pages/referrals/referrals.component';
 import { ProductsComponent } from './pages/products/products.component';
 
+
+// import eliminado: ProductosCatalogoComponent
+
 const routes: Routes =[
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home',             component: HomeComponent },
@@ -23,7 +26,8 @@ const routes: Routes =[
     { path: 'referrals',        component: ReferralsComponent },
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
     { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) },
-    { path: 'products', component: ProductsComponent }
+    { path: 'products', component: ProductsComponent },
+    // Ruta eliminada: productos-catalogo
 ];
 
 @NgModule({

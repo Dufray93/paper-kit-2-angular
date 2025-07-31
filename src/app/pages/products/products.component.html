@@ -18,30 +18,698 @@
   <section class="productos-section py-5">
     <div class="container">
       <h2 class="text-center mb-4">Nuestros Productos</h2>
-      <div class="row g-4">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let producto of productos">
-          <div class="card h-100 shadow-sm producto-card">
-            <img [src]="producto.imagen" class="card-img-top" [alt]="producto.nombre">
-            <div class="card-body d-flex flex-column card-body-compact">
-              <h5 class="card-title mb-1">{{ producto.nombre }}</h5>
-              <p class="card-text text-muted small mb-1">{{ producto.tipo }}</p>
-              <p class="card-text mb-2" style="font-size:0.97em;">{{ producto.descripcion }}</p>
-              <div class="d-flex align-items-center justify-content-between mt-auto gap-2">
-                <div class="product-stars">
-                  <i class="fa fa-star text-warning"></i>
-                  <i class="fa fa-star text-warning"></i>
-                  <i class="fa fa-star text-warning"></i>
-                  <i class="fa fa-star text-warning"></i>
-                  <i class="fa fa-star-half-o text-warning"></i>
+      <!-- Barra de tipos de producto -->
+      <div class="mb-4 d-flex flex-wrap gap-2 justify-content-center">
+        <button class="btn btn-outline-primary btn-sm px-3 py-1" [ngClass]="{active: categoriaSeleccionada === 'todos'}" (click)="seleccionarCategoria('todos')">Todos</button>
+        <button *ngFor="let cat of categorias" class="btn btn-outline-primary btn-sm px-3 py-1" [ngClass]="{active: categoriaSeleccionada === cat.key}" (click)="seleccionarCategoria(cat.key)">{{cat.label}}</button>
+      </div>
+      <div class="row">
+        <!-- Botón mostrar filtros en todas las vistas -->
+        <div class="col-12 mb-2">
+          <button class="btn btn-outline-primary btn-sm d-inline-block d-lg-none" type="button" (click)="mostrarFiltrosMovil = true">
+            <i class="fa fa-filter me-2"></i>Filtros
+          </button>
+          <button class="btn btn-outline-primary btn-sm d-none d-lg-block" type="button" (click)="mostrarFiltrosPC = true">
+            <i class="fa fa-filter me-2"></i>Filtros
+          </button>
+        </div>
+        <!-- Filtros móvil/tablet -->
+        <ng-container *ngIf="mostrarFiltrosMovil">
+          <div class="filtros-movil-overlay" (click)="mostrarFiltrosMovil = false"></div>
+          <div class="filtros-movil-panel shadow-lg animate__animated animate__fadeInRight">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h5 class="text-primary mb-0">Filtros</h5>
+              <button type="button" class="btn btn-link p-0 m-0 shadow-none close-filtros-x" aria-label="Cerrar" (click)="mostrarFiltrosMovil = false">
+                <i class="nc-icon nc-simple-remove fs-4"></i>
+              </button>
+            </div>
+            <div class="catalogo-filtros" style="max-height:70vh; overflow-y:auto;">
+              <!-- Filtros igual que en sidebar PC -->
+              <div *ngIf="categoriaSeleccionada === 'todos'">
+                <div class="accordion" id="filtrosAccordionMovil">
+                  <!-- ...filtros de precio... -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioMovil">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioMovil" aria-expanded="true" aria-controls="collapsePrecioMovil">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioMovil" class="accordion-collapse collapse show" aria-labelledby="headingPrecioMovil" data-bs-parent="#filtrosAccordionMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <a class="btn btn-success btn-sm btn-whatsapp-product" href="https://wa.me/573000000000" target="_blank" rel="noopener" title="Cotizar por WhatsApp">
-                  <i class="fa fa-whatsapp me-1"></i> Cotizar
-                </a>
+              </div>
+              <!-- Filtros por tipo (gafas_sol, lente, accesorio, montura) -->
+              <ng-container *ngIf="categoriaSeleccionada === 'gafas_sol'">
+                <div class="accordion" id="filtrosSolMovil">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioSolMovil">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioSolMovil" aria-expanded="true" aria-controls="collapsePrecioSolMovil">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioSolMovil" class="accordion-collapse collapse show" aria-labelledby="headingPrecioSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaSolMovil" aria-expanded="false" aria-controls="collapseMarcaSolMovil">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaSolMovil" class="accordion-collapse collapse" aria-labelledby="headingMarcaSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color de montura -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorSolMovil" aria-expanded="false" aria-controls="collapseColorSolMovil">Color</button>
+                    </h2>
+                    <div id="collapseColorSolMovil" class="accordion-collapse collapse" aria-labelledby="headingColorSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color de lente -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorLenteSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorLenteSolMovil" aria-expanded="false" aria-controls="collapseColorLenteSolMovil">Color de Lente</button>
+                    </h2>
+                    <div id="collapseColorLenteSolMovil" class="accordion-collapse collapse" aria-labelledby="headingColorLenteSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === ''}" (click)="filtros.colorLente = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let colorLente of getColoresLenteDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === colorLente}" (click)="filtros.colorLente = colorLente; onFiltroChange()">{{colorLente}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Género -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingGeneroSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneroSolMovil" aria-expanded="false" aria-controls="collapseGeneroSolMovil">Género</button>
+                    </h2>
+                    <div id="collapseGeneroSolMovil" class="accordion-collapse collapse" aria-labelledby="headingGeneroSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === ''}" (click)="filtros.genero = ''; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'hombre'}" (click)="filtros.genero = 'hombre'; onFiltroChange()">Hombre</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'mujer'}" (click)="filtros.genero = 'mujer'; onFiltroChange()">Mujer</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niño'}" (click)="filtros.genero = 'niño'; onFiltroChange()">Niño</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niña'}" (click)="filtros.genero = 'niña'; onFiltroChange()">Niña</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'unisex'}" (click)="filtros.genero = 'unisex'; onFiltroChange()">Unisex</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Polarizado -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPolarizadoSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePolarizadoSolMovil" aria-expanded="false" aria-controls="collapsePolarizadoSolMovil">Polarizado</button>
+                    </h2>
+                    <div id="collapsePolarizadoSolMovil" class="accordion-collapse collapse" aria-labelledby="headingPolarizadoSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === null}" (click)="filtros.polarizado = null; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === true}" (click)="filtros.polarizado = true; onFiltroChange()">Sí</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === false}" (click)="filtros.polarizado = false; onFiltroChange()">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Protección UV -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingUVSolMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUVSolMovil" aria-expanded="false" aria-controls="collapseUVSolMovil">Protección UV</button>
+                    </h2>
+                    <div id="collapseUVSolMovil" class="accordion-collapse collapse" aria-labelledby="headingUVSolMovil" data-bs-parent="#filtrosSolMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === null}" (click)="filtros.proteccionUV = null; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === true}" (click)="filtros.proteccionUV = true; onFiltroChange()">Sí</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === false}" (click)="filtros.proteccionUV = false; onFiltroChange()">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'lente'">
+                <div class="accordion" id="filtrosLenteMovil">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioLenteMovil">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioLenteMovil" aria-expanded="true" aria-controls="collapsePrecioLenteMovil">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioLenteMovil" class="accordion-collapse collapse show" aria-labelledby="headingPrecioLenteMovil" data-bs-parent="#filtrosLenteMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaLenteMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaLenteMovil" aria-expanded="false" aria-controls="collapseMarcaLenteMovil">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaLenteMovil" class="accordion-collapse collapse" aria-labelledby="headingMarcaLenteMovil" data-bs-parent="#filtrosLenteMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Material -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMaterialLenteMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialLenteMovil" aria-expanded="false" aria-controls="collapseMaterialLenteMovil">Material</button>
+                    </h2>
+                    <div id="collapseMaterialLenteMovil" class="accordion-collapse collapse" aria-labelledby="headingMaterialLenteMovil" data-bs-parent="#filtrosLenteMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === ''}" (click)="filtros.material = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let mat of getMaterialesDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === mat}" (click)="filtros.material = mat; onFiltroChange()">{{mat}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorLenteMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorLenteMovil" aria-expanded="false" aria-controls="collapseColorLenteMovil">Color</button>
+                    </h2>
+                    <div id="collapseColorLenteMovil" class="accordion-collapse collapse" aria-labelledby="headingColorLenteMovil" data-bs-parent="#filtrosLenteMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'accesorio'">
+                <div class="accordion" id="filtrosAccesorioMovil">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioAccesorioMovil">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioAccesorioMovil" aria-expanded="true" aria-controls="collapsePrecioAccesorioMovil">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioAccesorioMovil" class="accordion-collapse collapse show" aria-labelledby="headingPrecioAccesorioMovil" data-bs-parent="#filtrosAccesorioMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'montura'">
+                <div class="accordion" id="filtrosMonturaMovil">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioMonturaMovil">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioMonturaMovil" aria-expanded="true" aria-controls="collapsePrecioMonturaMovil">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioMonturaMovil" class="accordion-collapse collapse show" aria-labelledby="headingPrecioMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaMonturaMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaMonturaMovil" aria-expanded="false" aria-controls="collapseMarcaMonturaMovil">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaMonturaMovil" class="accordion-collapse collapse" aria-labelledby="headingMarcaMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Forma -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFormaMonturaMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormaMonturaMovil" aria-expanded="false" aria-controls="collapseFormaMonturaMovil">Forma</button>
+                    </h2>
+                    <div id="collapseFormaMonturaMovil" class="accordion-collapse collapse" aria-labelledby="headingFormaMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === ''}" (click)="filtros.forma = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let forma of getFormasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === forma}" (click)="filtros.forma = forma; onFiltroChange()">{{forma}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Material -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMaterialMonturaMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialMonturaMovil" aria-expanded="false" aria-controls="collapseMaterialMonturaMovil">Material</button>
+                    </h2>
+                    <div id="collapseMaterialMonturaMovil" class="accordion-collapse collapse" aria-labelledby="headingMaterialMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === ''}" (click)="filtros.material = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let mat of getMaterialesDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === mat}" (click)="filtros.material = mat; onFiltroChange()">{{mat}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorMonturaMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorMonturaMovil" aria-expanded="false" aria-controls="collapseColorMonturaMovil">Color</button>
+                    </h2>
+                    <div id="collapseColorMonturaMovil" class="accordion-collapse collapse" aria-labelledby="headingColorMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Género -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingGeneroMonturaMovil">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneroMonturaMovil" aria-expanded="false" aria-controls="collapseGeneroMonturaMovil">Género</button>
+                    </h2>
+                    <div id="collapseGeneroMonturaMovil" class="accordion-collapse collapse" aria-labelledby="headingGeneroMonturaMovil" data-bs-parent="#filtrosMonturaMovil">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === ''}" (click)="filtros.genero = ''; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'hombre'}" (click)="filtros.genero = 'hombre'; onFiltroChange()">Hombre</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'mujer'}" (click)="filtros.genero = 'mujer'; onFiltroChange()">Mujer</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niño'}" (click)="filtros.genero = 'niño'; onFiltroChange()">Niño</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niña'}" (click)="filtros.genero = 'niña'; onFiltroChange()">Niña</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'unisex'}" (click)="filtros.genero = 'unisex'; onFiltroChange()">Unisex</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <!-- Panel flotante de filtros en PC -->
+        <ng-container *ngIf="mostrarFiltrosPC">
+          <div class="filtros-pc-overlay d-none d-lg-block" (click)="mostrarFiltrosPC = false"></div>
+          <div class="filtros-pc-panel shadow-lg animate__animated animate__fadeInRight d-none d-lg-block">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h5 class="text-primary mb-0">Filtros</h5>
+              <button type="button" class="btn btn-link p-0 m-0 shadow-none close-filtros-x" aria-label="Cerrar" (click)="mostrarFiltrosPC = false">
+                <i class="nc-icon nc-simple-remove fs-4"></i>
+              </button>
+            </div>
+            <div class="catalogo-filtros" style="max-height:70vh; overflow-y:auto;">
+              <!-- Filtros igual que en el panel móvil/tablet -->
+              <div *ngIf="categoriaSeleccionada === 'todos'">
+                <div class="accordion" id="filtrosAccordionPC">
+                  <!-- ...filtros de precio... -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioPC">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioPC" aria-expanded="true" aria-controls="collapsePrecioPC">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioPC" class="accordion-collapse collapse show" aria-labelledby="headingPrecioPC" data-bs-parent="#filtrosAccordionPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Filtros por tipo (gafas_sol, lente, accesorio, montura) -->
+              <ng-container *ngIf="categoriaSeleccionada === 'gafas_sol'">
+                <div class="accordion" id="filtrosSolPC">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioSolPC">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioSolPC" aria-expanded="true" aria-controls="collapsePrecioSolPC">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioSolPC" class="accordion-collapse collapse show" aria-labelledby="headingPrecioSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaSolPC" aria-expanded="false" aria-controls="collapseMarcaSolPC">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaSolPC" class="accordion-collapse collapse" aria-labelledby="headingMarcaSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color de montura -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorSolPC" aria-expanded="false" aria-controls="collapseColorSolPC">Color</button>
+                    </h2>
+                    <div id="collapseColorSolPC" class="accordion-collapse collapse" aria-labelledby="headingColorSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color de lente -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorLenteSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorLenteSolPC" aria-expanded="false" aria-controls="collapseColorLenteSolPC">Color de Lente</button>
+                    </h2>
+                    <div id="collapseColorLenteSolPC" class="accordion-collapse collapse" aria-labelledby="headingColorLenteSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === ''}" (click)="filtros.colorLente = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let colorLente of getColoresLenteDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === colorLente}" (click)="filtros.colorLente = colorLente; onFiltroChange()">{{colorLente}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Género -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingGeneroSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneroSolPC" aria-expanded="false" aria-controls="collapseGeneroSolPC">Género</button>
+                    </h2>
+                    <div id="collapseGeneroSolPC" class="accordion-collapse collapse" aria-labelledby="headingGeneroSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === ''}" (click)="filtros.genero = ''; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'hombre'}" (click)="filtros.genero = 'hombre'; onFiltroChange()">Hombre</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'mujer'}" (click)="filtros.genero = 'mujer'; onFiltroChange()">Mujer</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niño'}" (click)="filtros.genero = 'niño'; onFiltroChange()">Niño</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niña'}" (click)="filtros.genero = 'niña'; onFiltroChange()">Niña</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'unisex'}" (click)="filtros.genero = 'unisex'; onFiltroChange()">Unisex</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Polarizado -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPolarizadoSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePolarizadoSolPC" aria-expanded="false" aria-controls="collapsePolarizadoSolPC">Polarizado</button>
+                    </h2>
+                    <div id="collapsePolarizadoSolPC" class="accordion-collapse collapse" aria-labelledby="headingPolarizadoSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === null}" (click)="filtros.polarizado = null; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === true}" (click)="filtros.polarizado = true; onFiltroChange()">Sí</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.polarizado === false}" (click)="filtros.polarizado = false; onFiltroChange()">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Protección UV -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingUVSolPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUVSolPC" aria-expanded="false" aria-controls="collapseUVSolPC">Protección UV</button>
+                    </h2>
+                    <div id="collapseUVSolPC" class="accordion-collapse collapse" aria-labelledby="headingUVSolPC" data-bs-parent="#filtrosSolPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === null}" (click)="filtros.proteccionUV = null; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === true}" (click)="filtros.proteccionUV = true; onFiltroChange()">Sí</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.proteccionUV === false}" (click)="filtros.proteccionUV = false; onFiltroChange()">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'lente'">
+                <div class="accordion" id="filtrosLentePC">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioLentePC">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioLentePC" aria-expanded="true" aria-controls="collapsePrecioLentePC">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioLentePC" class="accordion-collapse collapse show" aria-labelledby="headingPrecioLentePC" data-bs-parent="#filtrosLentePC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaLentePC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaLentePC" aria-expanded="false" aria-controls="collapseMarcaLentePC">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaLentePC" class="accordion-collapse collapse" aria-labelledby="headingMarcaLentePC" data-bs-parent="#filtrosLentePC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Material -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMaterialLentePC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialLentePC" aria-expanded="false" aria-controls="collapseMaterialLentePC">Material</button>
+                    </h2>
+                    <div id="collapseMaterialLentePC" class="accordion-collapse collapse" aria-labelledby="headingMaterialLentePC" data-bs-parent="#filtrosLentePC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === ''}" (click)="filtros.material = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let mat of getMaterialesDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === mat}" (click)="filtros.material = mat; onFiltroChange()">{{mat}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorLentePC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorLentePC" aria-expanded="false" aria-controls="collapseColorLentePC">Color</button>
+                    </h2>
+                    <div id="collapseColorLentePC" class="accordion-collapse collapse" aria-labelledby="headingColorLentePC" data-bs-parent="#filtrosLentePC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'accesorio'">
+                <div class="accordion" id="filtrosAccesorioPC">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioAccesorioPC">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioAccesorioPC" aria-expanded="true" aria-controls="collapsePrecioAccesorioPC">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioAccesorioPC" class="accordion-collapse collapse show" aria-labelledby="headingPrecioAccesorioPC" data-bs-parent="#filtrosAccesorioPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="categoriaSeleccionada === 'montura'">
+                <div class="accordion" id="filtrosMonturaPC">
+                  <!-- Precio -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingPrecioMonturaPC">
+                      <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecioMonturaPC" aria-expanded="true" aria-controls="collapsePrecioMonturaPC">Precio</button>
+                    </h2>
+                    <div id="collapsePrecioMonturaPC" class="accordion-collapse collapse show" aria-labelledby="headingPrecioMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex gap-2 align-items-center mb-2">
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="onFiltroChange()">
+                          <span>-</span>
+                          <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="onFiltroChange()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Marca -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMarcaMonturaPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMarcaMonturaPC" aria-expanded="false" aria-controls="collapseMarcaMonturaPC">Marca</button>
+                    </h2>
+                    <div id="collapseMarcaMonturaPC" class="accordion-collapse collapse" aria-labelledby="headingMarcaMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; onFiltroChange()">{{marca}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Forma -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFormaMonturaPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFormaMonturaPC" aria-expanded="false" aria-controls="collapseFormaMonturaPC">Forma</button>
+                    </h2>
+                    <div id="collapseFormaMonturaPC" class="accordion-collapse collapse" aria-labelledby="headingFormaMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === ''}" (click)="filtros.forma = ''; onFiltroChange()">Todas</button>
+                          <button *ngFor="let forma of getFormasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === forma}" (click)="filtros.forma = forma; onFiltroChange()">{{forma}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Material -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingMaterialMonturaPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterialMonturaPC" aria-expanded="false" aria-controls="collapseMaterialMonturaPC">Material</button>
+                    </h2>
+                    <div id="collapseMaterialMonturaPC" class="accordion-collapse collapse" aria-labelledby="headingMaterialMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === ''}" (click)="filtros.material = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let mat of getMaterialesDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === mat}" (click)="filtros.material = mat; onFiltroChange()">{{mat}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Color -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingColorMonturaPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseColorMonturaPC" aria-expanded="false" aria-controls="collapseColorMonturaPC">Color</button>
+                    </h2>
+                    <div id="collapseColorMonturaPC" class="accordion-collapse collapse" aria-labelledby="headingColorMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; onFiltroChange()">Todos</button>
+                          <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; onFiltroChange()">{{color}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Género -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingGeneroMonturaPC">
+                      <button class="accordion-button collapsed py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGeneroMonturaPC" aria-expanded="false" aria-controls="collapseGeneroMonturaPC">Género</button>
+                    </h2>
+                    <div id="collapseGeneroMonturaPC" class="accordion-collapse collapse" aria-labelledby="headingGeneroMonturaPC" data-bs-parent="#filtrosMonturaPC">
+                      <div class="accordion-body p-2">
+                        <div class="d-flex flex-wrap gap-2">
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === ''}" (click)="filtros.genero = ''; onFiltroChange()">Todos</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'hombre'}" (click)="filtros.genero = 'hombre'; onFiltroChange()">Hombre</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'mujer'}" (click)="filtros.genero = 'mujer'; onFiltroChange()">Mujer</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niño'}" (click)="filtros.genero = 'niño'; onFiltroChange()">Niño</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niña'}" (click)="filtros.genero = 'niña'; onFiltroChange()">Niña</button>
+                          <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'unisex'}" (click)="filtros.genero = 'unisex'; onFiltroChange()">Unisex</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <!-- Grid de productos -->
+        <div class="col-lg-12 col-md-12">
+          <div class="row">
+            <!-- Grid de productos -->
+            <ng-container *ngIf="productosFiltrados.length > 0; else sinProductos">
+              <div *ngFor="let producto of productosFiltrados | slice:(currentPage-1)*pageSize:(currentPage-1)*pageSize+pageSize" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                  <img [src]="producto.imagen" class="card-img-top" [alt]="producto.nombre" style="height:180px;object-fit:cover;">
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title mb-2">{{producto.nombre}}</h5>
+                    <p class="card-text mb-1">{{producto.descripcion}}</p>
+                    <div class="mb-1"><span class="fw-bold">Marca:</span> {{producto.marca.nombre}}</div>
+                    <div class="mb-1"><span class="fw-bold">Precio:</span> {{producto.precio | currency:'COP':'symbol':'1.0-0'}}</div>
+                    <div class="mb-1"><span class="fw-bold">Stock:</span> {{producto.stock}}</div>
+                    <div class="mt-auto">
+                      <button class="btn btn-primary btn-sm w-100">Ver detalle</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <!-- Controles de paginación -->
+            <div class="row">
+              <div class="col-12 d-flex justify-content-center mt-3">
+                <ul class="pagination pagination-sm">
+                  <li class="page-item" [class.disabled]="currentPage === 1">
+                    <button class="page-link" (click)="prevPage()" [disabled]="currentPage === 1">&laquo;</button>
+                  </li>
+                  <li class="page-item" *ngFor="let p of pagesArray" [class.active]="currentPage === p">
+                    <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
+                  </li>
+                  <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">&raquo;</button>
+                  </li>
+                </ul>
               </div>
             </div>
+            <ng-template #sinProductos>
+              <div class="col-12 text-center py-5">
+                <h4 class="text-muted">No hay productos disponibles.</h4>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>
     </div>
   </section>
-</div>
+

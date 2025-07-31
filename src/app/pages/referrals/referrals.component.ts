@@ -1,7 +1,7 @@
 // Componente de consulta y visualización de referidos y recompensas
 import { Component } from '@angular/core';
 import { ReferralService } from 'src/app/core/services/referral.service';
-import { UserReferralsDto } from 'src/app/shared/models/user-referrals-dto.model';
+import { UserReferralsDto } from 'src/app/models/user-referrals-dto.model';
 
 @Component({
   selector: 'app-referrals',
