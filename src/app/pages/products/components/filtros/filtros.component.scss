@@ -1,0 +1,168 @@
+// --- Filtros tipo acordeón ---
+.accordion-item {
+  border: none;
+  border-bottom: 1px solid #ececec;
+  background: transparent;
+  margin-bottom: 0;
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+.accordion-header {
+  margin-bottom: 0;
+}
+
+.accordion-button {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #222;
+  font-size: 1.08rem;
+  font-weight: 600;
+  padding: 1rem 0 1rem 0.2rem;
+  transition: background 0.2s;
+}
+.accordion-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+.accordion-button:not(.collapsed) {
+  background: transparent;
+  color: #007bff;
+}
+
+.accordion-body {
+  padding: 0.5rem 0 1.2rem 0.2rem;
+}
+
+// Botones de opción de filtro
+.btn-outline-primary.btn-sm {
+  border-radius: 12px;
+  border-width: 2px;
+  font-weight: 500;
+  background: #fff;
+  color: #007bff;
+  margin-bottom: 0.3rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-outline-primary.btn-sm.active,
+.btn-outline-primary.btn-sm:active,
+.btn-outline-primary.btn-sm:focus {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+// Inputs de rango de precio
+input[type="number"].form-control-sm {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 0.98rem;
+  padding: 0.3rem 0.7rem;
+}
+
+// Espaciado entre grupos de filtros
+.catalogo-filtros > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+// Panel de filtros móvil/tablet
+.filtros-movil-panel {
+  position: fixed;
+  top: 70px; /* Altura de la navbar en móvil/tablet */
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  width: 90vw;
+  max-width: 420px;
+  height: calc(100vh - 70px);
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18), 0 1.5px 4px 0 rgba(0,0,0,0.10);
+  padding: 2rem 1.2rem 1.5rem 1.2rem;
+  z-index: 1050;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+@media (min-width: 600px) and (max-width: 991.98px) {
+  .filtros-movil-panel {
+    max-width: 600px;
+    width: 95vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .filtros-movil-panel {
+    display: none !important;
+  }
+}
+
+// Overlay móvil/tablet
+.filtros-movil-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.15);
+  z-index: 1040;
+}
+// Barra de filtros PC (estilo barra blanca)
+.filtros-pc-panel {
+  position: fixed;
+  top: 80px; /* Altura de la navbar, ajusta si es necesario */
+  right: 0;
+  height: calc(100vh - 80px);
+  width: 380px;
+  max-width: 95vw;
+  background: #fff;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: -4px 0 24px 0 rgba(0,0,0,0.12), -1.5px 0 4px 0 rgba(0,0,0,0.08);
+  padding: 2rem 2rem 1.5rem 2rem;
+  z-index: 1050;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.filtros-pc-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.15);
+  z-index: 1040;
+}
+
+// Botón cerrar (X)
+.close-filtros-x {
+  color: #888;
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+.close-filtros-x:hover {
+  color: #e74c3c;
+}
+
+// Encabezado de filtros
+.filtros-pc-panel h5 {
+  font-weight: 700;
+  color: #222;
+}
+
+// Espaciado entre secciones de filtros
+.catalogo-filtros > *:not(:last-child) {
+  margin-bottom: 1.5rem;
+}

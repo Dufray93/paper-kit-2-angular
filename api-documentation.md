@@ -266,7 +266,7 @@ El catálogo de productos se modela usando herencia para máxima extensibilidad 
   "imagen": "assets/img/sliderProductos/lentes.jpg",
   "precio": 120000,
   "marca": "Essilor",
-  "categoria": "Premium",
+  // campo 'categoria' eliminado
   "stock": 10,
   "activo": true                    // Indica si el producto está visible en el catálogo
 }
@@ -283,13 +283,13 @@ El catálogo de productos se modela usando herencia para máxima extensibilidad 
   "imagen": "assets/img/sliderProductos/montura.jpg",
   "precio": 80000,
   "marca": "Ray-Ban",
-  "categoria": "Clásico",
+  // campo 'categoria' eliminado
   "stock": 5,
   "activo": true,
   "forma": "rectangular",           // Específico de montura
   "material": "acetato",
   "color": "negro",
-  "tamaño": "mediano"
+  "tamaño": "mediano",
   "genero": "hombre" // hombre, mujer, niño, niña, unisex
 }
 ```
@@ -305,12 +305,12 @@ El catálogo de productos se modela usando herencia para máxima extensibilidad 
   "imagen": "assets/img/sliderProductos/sol.jpg",
   "precio": 150000,
   "marca": "Oakley",
-  "categoria": "Deportivo",
+  // campo 'categoria' eliminado
   "stock": 7,
   "activo": true,
   "proteccionUV": true,              // Específico de gafas de sol
   "polarizado": true,
-  "colorLente": "gris"
+  "colorLente": "gris",
   "genero": "unisex" // hombre, mujer, niño, niña, unisex
 }
 ```
@@ -331,7 +331,7 @@ Ejemplo:
   "imagen": "assets/img/sliderProductos/estuche.jpg",
   "precio": 20000,
   "marca": "Genérico",
-  "categoria": "Accesorios",
+  // campo 'categoria' eliminado
   "stock": 20,
   "activo": true
 }
@@ -339,6 +339,61 @@ Ejemplo:
 
 
 **Notas:**
+### Filtros Dinámicos en Frontend
+
+El frontend implementa filtros dinámicos según el tipo de producto seleccionado:
+
+- Para cada tipo de producto, solo se muestran los filtros relevantes (marca, material, tipo de lente, forma, color, tamaño, género, etc.).
+- En la vista "todos" solo se muestran los filtros de precio mínimo y máximo, para evitar confusión y mejorar la experiencia de usuario.
+- El filtro de nombre se recomienda como mejora futura, pero actualmente no está implementado en la vista "todos".
+
+**Ejemplo de lógica de filtros en frontend:**
+
+```typescript
+getFiltrosVisibles(): string[] {
+  switch (this.categoriaSeleccionada) {
+    case 'lente':
+      return ['marca', 'material', 'tipoLente', 'precioMin', 'precioMax'];
+    case 'montura':
+      return ['marca', 'material', 'forma', 'color', 'tamaño', 'genero', 'precioMin', 'precioMax'];
+    case 'gafas_sol':
+      return ['marca', 'material', 'forma', 'color', 'tamaño', 'genero', 'precioMin', 'precioMax'];
+    case 'contacto':
+      return ['marca', 'material', 'tipoLente', 'precioMin', 'precioMax'];
+    case 'accesorio':
+      return ['marca', 'precioMin', 'precioMax'];
+    case 'todos':
+      return ['precioMin', 'precioMax'];
+    default:
+      return ['precioMin', 'precioMax'];
+  }
+}
+```
+
+**Recomendaciones para Backend:**
+
+- Al migrar la lógica de filtrado al backend, asegúrate de que los endpoints acepten solo los filtros relevantes para cada tipo de producto.
+- Implementa validaciones para ignorar filtros que no aplican al tipo seleccionado.
+- Permite filtrar por precio en la consulta general ("todos") y considera agregar búsqueda por nombre como mejora.
+
+**Modelo de Producto y DTOs:**
+
+- Los DTOs se han modularizado y cada subtipo de producto extiende de `ProductoDto`.
+- Los accesorios no requieren DTO propio, solo usan la clase base.
+- El campo `categoria` fue eliminado del modelo y de los ejemplos.
+- Los catálogos de atributos (marca, material, forma, color, tamaño) deben gestionarse como entidades independientes y referenciarse por id.
+
+**Optimización y Experiencia de Usuario:**
+
+- El filtrado en frontend es eficiente hasta 2000 productos; para volúmenes mayores, migra la lógica al backend.
+- Los filtros se actualizan en tiempo real y solo muestran opciones válidas según el tipo de producto.
+- El backend debe validar los filtros recibidos y retornar solo los productos activos.
+
+**Notas para implementación futura:**
+
+- Mantén la lógica de filtros centralizada y modular en el backend.
+- Expón endpoints RESTful para los catálogos y asegúrate de que el frontend los consuma para mostrar selects y filtros consistentes.
+- Considera paginación y búsqueda avanzada en el endpoint de productos.
 * El campo `tipo` determina el subtipo y los campos adicionales esperados.
 * El frontend puede filtrar y mostrar campos específicos según el tipo de producto.
 * Se recomienda usar discriminadores en la API para facilitar la deserialización en el frontend.

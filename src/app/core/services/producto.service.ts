@@ -33,11 +33,11 @@ export class ProductoService {
     }
     // Filtro de marca
     if (filtros.marca) {
-      productos = productos.filter(p => p.marca?.nombre === filtros.marca);
+      productos = productos.filter(p => p.marca?.nombre === filtros.marca || p.marca?.id === filtros.marca || p.marca?.idTipoProd === filtros.idTipoProd);
     }
     // Filtro de material
     if (filtros.material) {
-      productos = productos.filter(p => 'material' in p && (p.material as any)?.nombre === filtros.material);
+      productos = productos.filter(p => 'material' in p && ((p.material as any)?.nombre === filtros.material || (p.material as any)?.id === filtros.material || (p.material as any)?.idTipoProd === filtros.idTipoProd));
     }
     // Filtro de forma
     if (filtros.forma) {
@@ -49,7 +49,10 @@ export class ProductoService {
     }
     // Filtro de tipoLente
     if (filtros.tipoLente) {
-      productos = productos.filter(p => 'tipoLente' in p && (p as any).tipoLente === filtros.tipoLente);
+      productos = productos.filter(p => {
+        // Solo productos que tienen la propiedad tipoLente
+        return ('tipoLente' in p) && (p as any).tipoLente && (p as any).tipoLente.nombre === filtros.tipoLente;
+      });
     }
     // Filtro de polarizado
     if (filtros.polarizado !== undefined) {
@@ -98,12 +101,12 @@ export class ProductoService {
         descripcion: 'Lentes para corrección visual con antirreflejo.',
         imagen: 'assets/img/sliderProductos/lentes.jpg',
         precio: 120000,
-        marca: { id: 1, nombre: 'Essilor', activo: true },
+        marca: { id: 1, nombre: 'Essilor', activo: true, idTipoProd: 1 },
         categoria: 'Premium',
         stock: 10,
         activo: true,
-        tipoLente: 'Monofocal',
-        material: { id: 1, nombre: 'Policarbonato', activo: true },
+        tipoLente: { id: 1, nombre: 'Monofocal', activo: true, idTipoProd: 1 },
+        material: { id: 1, nombre: 'Policarbonato', activo: true, idTipoProd: 1 },
       } as LenteOftalmicoDto,
       {
         id: 2,
@@ -113,12 +116,12 @@ export class ProductoService {
         descripcion: 'Montura ligera de acetato, diseño rectangular.',
         imagen: 'assets/img/sliderProductos/marca.jpg',
         precio: 180000,
-        marca: { id: 2, nombre: 'Ray-Ban', activo: true },
+        marca: { id: 2, nombre: 'Ray-Ban', activo: true, idTipoProd: 2 },
         categoria: 'Clásico',
         stock: 5,
         activo: true,
         forma: { id: 2, nombre: 'rectangular', activo: true },
-        material: { id: 2, nombre: 'acetato', activo: true },
+        material: { id: 2, nombre: 'acetato', activo: true, idTipoProd: 2 },
         color: { id: 2, nombre: 'negro', activo: true },
         tamaño: { id: 2, nombre: 'mediano', activo: true },
         genero: 'hombre'
@@ -131,7 +134,7 @@ export class ProductoService {
         descripcion: 'Protección UV400, polarizadas.',
         imagen: 'assets/img/sliderProductos/sol.jpg',
         precio: 150000,
-        marca: { id: 3, nombre: 'Oakley', activo: true },
+        marca: { id: 3, nombre: 'Oakley', activo: true, idTipoProd: 3 },
         categoria: 'Deportivo',
         stock: 7,
         activo: true,
@@ -139,7 +142,7 @@ export class ProductoService {
         polarizado: true,
         colorLente: { id: 3, nombre: 'gris', activo: true },
         forma: { id: 3, nombre: 'redonda', activo: true },
-        material: { id: 3, nombre: 'policarbonato', activo: true },
+        material: { id: 3, nombre: 'policarbonato', activo: true, idTipoProd: 3 },
         color: { id: 3, nombre: 'gris', activo: true },
         tamaño: { id: 3, nombre: 'grande', activo: true },
         genero: 'unisex'
@@ -152,12 +155,13 @@ export class ProductoService {
         descripcion: 'Lentes de contacto blandos, uso mensual.',
         imagen: 'assets/img/sliderProductos/accesorios.jpg',
         precio: 45000,
-        marca: { id: 4, nombre: 'Acuvue', activo: true },
+        marca: { id: 4, nombre: 'Acuvue', activo: true, idTipoProd: 4 },
         categoria: 'Salud',
         stock: 20,
         activo: true,
         duracion: 'mensual',
-        material: { id: 4, nombre: 'Hidrogel', activo: true }
+        material: { id: 4, nombre: 'Hidrogel', activo: true, idTipoProd: 4 },
+        tipoLente: { id: 7, nombre: 'Blando', activo: true, idTipoProd: 4 }
       } as ContactoDto,
       {
         id: 5,
@@ -167,7 +171,7 @@ export class ProductoService {
         descripcion: 'Estuche rígido para gafas.',
         imagen: 'assets/img/sliderProductos/lentes.jpg',
         precio: 20000,
-        marca: { id: 5, nombre: 'Genérico', activo: true },
+        marca: { id: 5, nombre: 'Genérico', activo: true, idTipoProd: 5 },
         categoria: 'Accesorios',
         stock: 20,
         activo: true,
@@ -181,12 +185,12 @@ export class ProductoService {
         descripcion: 'Montura para niños, color azul, material TR90.',
         imagen: 'assets/img/sliderProductos/marca.jpg',
         precio: 95000,
-        marca: { id: 6, nombre: 'KidsVision', activo: true },
+        marca: { id: 6, nombre: 'KidsVision', activo: true, idTipoProd: 2 },
         categoria: 'Infantil',
         stock: 8,
         activo: true,
         forma: { id: 6, nombre: 'ovalada', activo: true },
-        material: { id: 6, nombre: 'TR90', activo: true },
+        material: { id: 6, nombre: 'TR90', activo: true, idTipoProd: 2 },
         color: { id: 6, nombre: 'azul', activo: true },
         tamaño: { id: 6, nombre: 'pequeño', activo: true },
         genero: 'niño'
@@ -199,7 +203,7 @@ export class ProductoService {
         descripcion: 'Gafas de sol para mujer, sin polarizado.',
         imagen: 'assets/img/sliderProductos/sol.jpg',
         precio: 135000,
-        marca: { id: 7, nombre: 'Vogue', activo: true },
+        marca: { id: 7, nombre: 'Vogue', activo: true, idTipoProd: 3 },
         categoria: 'Moda',
         stock: 6,
         activo: true,
@@ -207,7 +211,7 @@ export class ProductoService {
         polarizado: false,
         colorLente: { id: 7, nombre: 'marrón', activo: true },
         forma: { id: 7, nombre: 'cat-eye', activo: true },
-        material: { id: 7, nombre: 'acetato', activo: true },
+        material: { id: 7, nombre: 'acetato', activo: true, idTipoProd: 3 },
         color: { id: 7, nombre: 'marrón', activo: true },
         tamaño: { id: 7, nombre: 'mediano', activo: true },
         genero: 'mujer'
@@ -220,12 +224,13 @@ export class ProductoService {
         descripcion: 'Lentes de contacto de uso diario, material silicona.',
         imagen: 'assets/img/sliderProductos/accesorios.jpg',
         precio: 60000,
-        marca: { id: 8, nombre: 'BioTrue', activo: true },
+        marca: { id: 8, nombre: 'BioTrue', activo: true, idTipoProd: 4 },
         categoria: 'Salud',
         stock: 15,
         activo: true,
-        duracion: 'diario',
-        material: { id: 8, nombre: 'Silicona', activo: true }
+        duracion: 'uso_unico',
+        material: { id: 8, nombre: 'Silicona', activo: true, idTipoProd: 4 },
+        tipoLente: { id: 8, nombre: 'Duro', activo: true, idTipoProd: 4 }
       } as ContactoDto,
       {
         id: 9,
@@ -235,12 +240,12 @@ export class ProductoService {
         descripcion: 'Lentes bifocales para presbicia.',
         imagen: 'assets/img/sliderProductos/lentes.jpg',
         precio: 145000,
-        marca: { id: 9, nombre: 'Zeiss', activo: true },
+        marca: { id: 9, nombre: 'Zeiss', activo: true, idTipoProd: 1 },
         categoria: 'Premium',
         stock: 12,
         activo: true,
-        tipoLente: 'Bifocal',
-        material: { id: 9, nombre: 'Cristal', activo: true }
+        tipoLente: { id: 2, nombre: 'Bifocal', activo: true, idTipoProd: 1 },
+        material: { id: 9, nombre: 'Cristal', activo: true, idTipoProd: 1 }
       } as LenteOftalmicoDto,
       {
         id: 10,
@@ -250,7 +255,7 @@ export class ProductoService {
         descripcion: 'Paño de microfibra para limpieza de lentes.',
         imagen: 'assets/img/sliderProductos/lentes.jpg',
         precio: 8000,
-        marca: { id: 10, nombre: 'Genérico', activo: true },
+        marca: { id: 10, nombre: 'Genérico', activo: true, idTipoProd: 5 },
         categoria: 'Accesorios',
         stock: 50,
         activo: true,

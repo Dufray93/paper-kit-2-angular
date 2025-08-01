@@ -13,6 +13,25 @@ type CategoriaProductoConTodos = CategoriaProducto | 'todos';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  // Devuelve los filtros relevantes según la categoría seleccionada
+  getFiltrosVisibles(): string[] {
+    switch (this.categoriaSeleccionada) {
+      case 'lente':
+        return ['marca', 'material', 'tipoLente', 'precioMin', 'precioMax'];
+      case 'montura':
+        return ['marca', 'material', 'forma', 'color', 'tamaño', 'genero', 'precioMin', 'precioMax'];
+      case 'gafas_sol':
+        return ['marca', 'material', 'forma', 'color', 'tamaño', 'genero', 'precioMin', 'precioMax'];
+      case 'contacto':
+        return ['marca', 'material', 'tipoLente', 'precioMin', 'precioMax'];
+      case 'accesorio':
+        return ['marca', 'precioMin', 'precioMax'];
+      case 'todos':
+        return ['precioMin', 'precioMax'];
+      default:
+        return ['precioMin', 'precioMax'];
+    }
+  }
   mostrarFiltrosMovil = false;
   mostrarFiltrosPC: boolean = false; // Para el panel flotante de filtros en PC
   mostrarFiltrosSidebar = true; // Para PC: visibilidad de la barra lateral
@@ -156,20 +175,16 @@ export class ProductsComponent implements OnInit {
   }
 
   getTiposLenteDisponibles(): string[] {
-    if (this.categoriaSeleccionada === 'todos') {
+    // Solo mostrar para lentes oftálmicos y de contacto
+    if (this.categoriaSeleccionada === 'lente' || this.categoriaSeleccionada === 'contacto') {
       return Array.from(new Set(
         this.productos
-          .filter(p => 'tipoLente' in p && (p as any).tipoLente)
-          .map(p => (p as any).tipoLente)
+          .filter(p => p.tipo === this.categoriaSeleccionada && 'tipoLente' in p && (p as any).tipoLente)
+          .map(p => ((p as any).tipoLente?.nombre || (p as any).tipoLente))
           .filter(tipo => !!tipo)
       ));
     }
-    return Array.from(new Set(
-      this.productos
-        .filter(p => p.tipo === this.categoriaSeleccionada && 'tipoLente' in p && (p as any).tipoLente)
-        .map(p => (p as any).tipoLente)
-        .filter(tipo => !!tipo)
-    ));
+    return [];
   }
 
   getDuracionesDisponibles(): string[] {

@@ -3,12 +3,16 @@ import { Material } from './material.model';
 import { Forma } from './forma.model';
 import { Color } from './color.model';
 import { Tamano } from './tamano.model';
+import { TipoLente } from './tipo-lente.model';
 
 // Categorías de producto
 export type CategoriaProducto = 'lente' | 'montura' | 'gafas_sol' | 'contacto' | 'accesorio';
+// Duraciones fijas para lentes de contacto
+export type DuracionContacto = 'uso_unico' | 'quincenal' | 'mensual' | 'anual';
+// Géneros fijos
+export type GeneroProducto = 'hombre' | 'mujer' | 'niño' | 'niña' | 'unisex';
 
 export interface ProductoDto {
-  // --- Generales (compartidos por todas las entidades) ---
   id: number;
   sku: string;
   nombre: string;
@@ -17,17 +21,16 @@ export interface ProductoDto {
   imagen: string;
   precio: number;
   marca: Marca;
-  categoria: string;
   stock: number;
   activo: boolean;
+  material?: Material;
 }
 
 export interface MonturaDto extends ProductoDto {
   forma?: Forma;
-  material?: Material;
   color?: Color;
   tamaño?: Tamano;
-  genero?: 'hombre' | 'mujer' | 'niño' | 'niña' | 'unisex';
+  genero?: GeneroProducto;
 }
 
 export interface LenteSolDto extends ProductoDto {
@@ -35,18 +38,16 @@ export interface LenteSolDto extends ProductoDto {
   polarizado?: boolean;
   colorLente?: Color;
   forma?: Forma;
-  material?: Material;
   color?: Color;
   tamaño?: Tamano;
-  genero?: 'hombre' | 'mujer' | 'niño' | 'niña' | 'unisex';
+  genero?: GeneroProducto;
 }
 
 export interface LenteOftalmicoDto extends ProductoDto {
-  tipoLente?: string;
-  material?: Material;
+  tipoLente?: TipoLente;
 }
 
 export interface ContactoDto extends ProductoDto {
-  duracion?: string;
-  material?: Material;
+  duracion?: DuracionContacto;
+  tipoLente?: TipoLente;
 }

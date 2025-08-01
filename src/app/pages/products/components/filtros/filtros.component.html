@@ -1,0 +1,143 @@
+<!-- Panel móvil -->
+<ng-container *ngIf="mostrarFiltrosMovil">
+  <div class="filtros-movil-overlay" (click)="cerrarMovil()"></div>
+  <div class="filtros-movil-panel shadow-lg animate__animated animate__fadeInRight">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="text-primary mb-0">Filtros</h5>
+      <button type="button" class="btn btn-link p-0 m-0 shadow-none close-filtros-x" aria-label="Cerrar" (click)="cerrarMovil()">
+        <i class="nc-icon nc-simple-remove fs-4"></i>
+      </button>
+    </div>
+    <div class="catalogo-filtros" style="max-height:70vh; overflow-y:auto;">
+      <ng-container *ngTemplateOutlet="filtrosTemplate"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Panel PC -->
+<ng-container *ngIf="mostrarFiltrosPC">
+  <div class="filtros-pc-overlay d-none d-lg-block" (click)="cerrarPC()"></div>
+  <div class="filtros-pc-panel shadow-lg animate__animated animate__fadeInRight d-none d-lg-block">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="text-primary mb-0">Filtros</h5>
+      <button type="button" class="btn btn-link p-0 m-0 shadow-none close-filtros-x" aria-label="Cerrar" (click)="cerrarPC()">
+        <i class="nc-icon nc-simple-remove fs-4"></i>
+      </button>
+    </div>
+    <div class="catalogo-filtros" style="max-height:70vh; overflow-y:auto;">
+      <ng-container *ngTemplateOutlet="filtrosTemplate"></ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<!-- Template reutilizable para filtros -->
+<ng-template #filtrosTemplate>
+  <!-- Filtro de precio (siempre presente) -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('precioMin') || getFiltrosVisibles().includes('precioMax')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Precio</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex gap-2 align-items-center mb-2">
+        <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Mín" [(ngModel)]="filtros.precioMin" (input)="filtroCambiado()">
+        <span>-</span>
+        <input type="number" class="form-control form-control-sm" style="max-width:90px;" placeholder="Máx" [(ngModel)]="filtros.precioMax" (input)="filtroCambiado()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de tipo de lente -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('tipoLente')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Tipo de Lente</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.tipoLente === ''}" (click)="filtros.tipoLente = ''; filtroCambiado()">Todos</button>
+        <button *ngFor="let tipo of getTiposLenteDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.tipoLente === tipo}" (click)="filtros.tipoLente = tipo; filtroCambiado()">{{tipo}}</button>
+      </div>
+    </div>
+  </div>  
+
+  <!-- Filtro de marca -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('marca')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Marca</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === ''}" (click)="filtros.marca = ''; filtroCambiado()">Todas</button>
+        <button *ngFor="let marca of getMarcasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.marca === marca}" (click)="filtros.marca = marca; filtroCambiado()">{{marca}}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de material -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('material')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Material</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === ''}" (click)="filtros.material = ''; filtroCambiado()">Todos</button>
+        <button *ngFor="let mat of getMaterialesDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.material === mat}" (click)="filtros.material = mat; filtroCambiado()">{{mat}}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de forma -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('forma')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Forma</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === ''}" (click)="filtros.forma = ''; filtroCambiado()">Todas</button>
+        <button *ngFor="let forma of getFormasDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.forma === forma}" (click)="filtros.forma = forma; filtroCambiado()">{{forma}}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de color -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('color')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Color</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === ''}" (click)="filtros.color = ''; filtroCambiado()">Todos</button>
+        <button *ngFor="let color of getColoresDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.color === color}" (click)="filtros.color = color; filtroCambiado()">{{color}}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de color de lente -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('colorLente')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Color de Lente</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === ''}" (click)="filtros.colorLente = ''; filtroCambiado()">Todos</button>
+        <button *ngFor="let colorLente of getColoresLenteDisponibles()" class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.colorLente === colorLente}" (click)="filtros.colorLente = colorLente; filtroCambiado()">{{colorLente}}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtro de género -->
+  <div class="accordion-item" *ngIf="getFiltrosVisibles().includes('genero')">
+    <h2 class="accordion-header">
+      <button class="accordion-button py-2 px-3" type="button">Género</button>
+    </h2>
+    <div class="accordion-body p-2">
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === ''}" (click)="filtros.genero = ''; filtroCambiado()">Todos</button>
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'hombre'}" (click)="filtros.genero = 'hombre'; filtroCambiado()">Hombre</button>
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'mujer'}" (click)="filtros.genero = 'mujer'; filtroCambiado()">Mujer</button>
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niño'}" (click)="filtros.genero = 'niño'; filtroCambiado()">Niño</button>
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'niña'}" (click)="filtros.genero = 'niña'; filtroCambiado()">Niña</button>
+        <button class="btn btn-outline-primary btn-sm" [ngClass]="{active: filtros.genero === 'unisex'}" (click)="filtros.genero = 'unisex'; filtroCambiado()">Unisex</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
